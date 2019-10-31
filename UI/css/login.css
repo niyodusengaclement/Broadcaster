@@ -1,0 +1,17 @@
+a.forget-password {
+    text-decoration: none;
+    opacity: .5;
+    color: #333;
+}
+form {
+    box-shadow: 0px 5px 20px #bdc7cf;
+    margin-top: 8rem !important;
+    margin-bottom: 8rem !important;
+}
+form h2 {
+    margin: 0 0 ;
+    color: #333;
+}
+form .field input {
+    width: 98%;
+}
