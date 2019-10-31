@@ -1,0 +1,1 @@
+const userCreated = () => window.location = "../pages/login.html";
