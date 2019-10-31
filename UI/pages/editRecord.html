@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit record - Broadcaster</title>
+    <link rel="stylesheet" href="../css/style.css" media="all">
+    <link rel="stylesheet" href="../css/records.css" media="all">
+</head>
+<body class="edit-record">
+<div class="container">
+    <header class="flex flex-row space-between sticky-top">
+        <div class="title left"><a href="../index.html">Broadcaster</a></div>
+        <div class="flex flex-row right user-menus">
+            <a href="./myRecords.html" class="button">Home</a>
+            <a href="./createRecord.html" class="button">New Report</a>
+            <a href="./records.html" class="button">Edit Report</a>
+            <a href="#" class="button">Profile</a>
+            <a href="./login.html" class="button">Logout</a>
+        </div>
+    </header>
+    <main class="flex flex-column space-between content-center color-white shadow padding-30">
+        <h2 class="text-center page-title">Update record</h2>
+        <form action="records.html">
+            <div class="field margin-bottom-10">
+                <label for="title">Title</label>
+                <input type="text" class="" name="title" id="title" placeholder="Title" required autofocus
+                       value="Corruption is a huge bane to Africa’s development."
+                       autocomplete="off">
+            </div>
+            <div class="field margin-bottom-10">
+                <label for="image">Upload photo</label>
+                <input type="file" class="width-50" name="image" id="image" placeholder="record Image">
+                <img src="../assets/images/cover_bg_1.jpg" class="shadow-12" alt="record thumbnail">
+            </div>
+            <div class="field margin-bottom-10">
+                <label for="record">Comment</label>
+                <textarea name="record" id="record" cols="30" rows="15"
+                          class="width-100" required> Corruption is a huge bane to Africa’s development. African countries must develop novel and localized solutions that will curb this menace, hence the birth of Broadcaster. Broadcaster enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public, Corruption is a huge bane to Africa’s development. African countries must develop novel and localized solutions that will curb this menace, hence the birth of Broadcaster. Broadcaster enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public, Corruption is a huge bane to Africa’s development. African countries must develop novel and localized solutions that will curb this menace, hence the birth of Broadcaster. Broadcaster enables any/every citizen to bring any form of corruption to the notice of appropriate authorities and the general public.
+                </textarea>
+            </div>
+            <button type="button" id="editRec" 
+            onclick="editRecord()"
+            class="button primary-color padding-10 margin-vertical-20 width-25" >Update
+            </button>
+        </form>
+    </main>
+    <footer class="flex flex-row content-center">
+        <div class="">© 2019 All Right Reserved, Broadcaster</div>
+    </footer>
+</div>
+<script src="../js/scripts.js" type="application/javascript"></script>
+</body>
+</html>
