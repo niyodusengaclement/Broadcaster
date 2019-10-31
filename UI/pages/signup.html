@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account - Broadcaster</title>
+    <link rel="stylesheet" href="../css/style.css" media="all">
+    <link rel="stylesheet" href="../css/signup.css" media="all">
+</head>
+<body>
+<div class="container">
+    <header class="flex flex-row space-between sticky-top">
+        <div class="title left"><a href="../index.html">Broadcaster</a></div>
+        <div class="flex flex-row right space-evenly">
+            <a href="./login.html" class="button margin-horizontal-10 primary-color">Login</a>
+            <a href="./signup.html" class="button primary-color active-button">Sign Up</a>
+        </div>
+    </header>
+    <main class="flex-column space-between color-white shadow">
+        <div class="flex flex-row content-center">
+            <form action="#" method="post" role="form" id="createAccountForm"
+                  class="flex flex-column content-center width-50 padding-30 border-rounded">
+                <h2 class="text-center">Sign Up</h2>
+                <div class="field ">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" autofocus placeholder="First Name" autocomplete="off">
+                </div>
+                <div class="field ">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Phone Number" autocomplete="off">
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="field">
+                        <label for="confPassword">Comfirm Password</label>
+                        <input type="password" name="confPassword" id="confPassword" placeholder="Comfirm Password">
+                    </div>
+                <div class="flex flex-row space-between content-center">
+                    <button type="button" id="createAccountButton"
+                            onclick="userCreated()"
+                            class="button primary-color margin-vertical-30 padding-10 width-25">Create Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="flex flex-row content-center">
+        <div class="">© 2019 All Right Reserved, Broadcaster</div>
+    </footer>
+</div>
+<script src="../js/scripts.js" type="application/javascript"></script>
+</body>
+</html>
