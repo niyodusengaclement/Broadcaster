@@ -44,6 +44,10 @@ main section.services > div:nth-child(2) {
     background-color: #333;
 }
 
+main section.services > div:nth-child(3) {
+    background-color: #333;
+}
+
 main section.services > div:last-child {
     background-color: #333;
 }
