@@ -17,11 +17,6 @@ module.exports = {
   },
   rules: {
     "linebreak-style":0,
-    "no-unused-vars":0,
-    "no-console":0,
-    "require-await": true,
-    "no-empty-pattern": true,
-    "no-redeclare": true,
-    "quotes": ["error", "single", { "allowTemplateLiterals": true } ],
+    "require-await": 1,
   },
 };
