@@ -1,18 +1,18 @@
 const reportData = {
   validToken: {
-    'x-auth': '88888888dddd-didid8d8dd88d8d8d',
+    'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnRtaXN0aWNvMkBnbWFpbC5jb20iLCJ1c2VySWQiOjI3MzY0NDQ0NDQsInVzZXJuYW1lIjoiTWlzdGljbyIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NzI5Njc4OTUsImV4cCI6MTYwNDUwMzg5NSwiaXNzIjoid3d3Lmp3dC5pbyJ9.lnac2XBgSbSIatrboilxEZd-S6TROjm_A-CWAijmA1Q',
   },
   invalidToken: {
-    'x-auth': '88888888dddd-didid8d8dd88d8d8d',
+    'x-auth': 'eyJhjbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnRtaXN0aWNvMkBnbWFpbC5jb20iLCJ1c2VySWQiOjI3MzY0NDQ0NDQsInVzZXJuYW1lIjoiTWlzdGljbyIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NzI5Njc4OTUsImV4cCI6MTYwNDUwMzg5NSwiaXNzIjoid3d3Lmp3dC5pbyJ9.lnac2XBgSbSIatrboilxEZd-S6TROjm_A-CWAijmA1Q',
   },
   invalidAdminToken: {
-    'x-auth': '88888888dddd-didid8d8dd88d8d8d',
+    'x-auth': 'eyJkhbGciOiJIUzI1NiIsmInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnRtaXN0aWNvMkBnbWFpbC5jb20iLCJ1c2VySWQiOjI3MzY0NDQ0NDQsInVzZXJuYW1lIjoiTWlzdGljbyIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE1NzI5Njc4OTUsImV4cCI6MTYwNDUwMzg5NSwiaXNzIjoid3d3Lmp3dC5pbyJ9.lnac2XBgSbSIatrboilxEZd-S6TROjm_A-CWAijmA1Q',
   },
   validAdminToken: {
-    'x-auth': '88888888dddd-didid8d8dd88d8d8d',
+    'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnRtaXN0aWNvMkBnbWFpbC5jb20iLCJ1c2VySWQiOjExMTExMTExMTExMjIyLCJ1c2VybmFtZSI6Ik1pc3RpY28iLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NzI5NjgyMDEsImV4cCI6MTYwNDUwNDIwMSwiaXNzIjoid3d3Lmp3dC5pbyJ9.8pvpDsz8-tAilIDD96RTVgeXrIntpHZo8-z-GHPLOns',
   },
   location: '197783736 109735463',
-  missingLocation: '197783736 109735463',
+  missingLocation: '',
   newStatus: 'under investigation',
   emptyStatus: '',
   comment: {

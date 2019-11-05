@@ -1,13 +1,13 @@
 const userData = {
   allowedSignup: {
-    id: 3,
-    firstname: 'NIYODUSENGA',
-    lastname: 'Clement',
-    email: 'niyodusenga.clement@yahoo.com',
-    userId: 2736444444,
+    id: 10,
+    firstname: 'BRUCE',
+    lastname: 'Brizzy',
+    email: 'brucebrizzy@yahoo.com',
+    userId: 273644440944,
     phoneNumber: '0780282575',
-    username: 'NIYODUSENGA',
-    password: '5tr0n9P455w0rd',
+    username: 'Bruce',
+    password: 'P455w0rd',
     isAdmin: false,
   },
   missingSignupField: {
@@ -26,7 +26,7 @@ const userData = {
     firstname: 'MISTICO',
     lastname: 'Clement',
     email: 'clementmistico@gmail.com',
-    userId: 27364564444,
+    userId: 273644448344,
     phoneNumber: '0780282570',
     username: 'MISTICO',
     password: 'password1234',
@@ -43,7 +43,7 @@ const userData = {
   },
   allowedSignin: {
     email: 'clementmistico@gmail.com',
-    password: '5tr0n9P455w0rd',
+    password: 'password',
   },
   adminAccount: {
     email: 'admin@gmail.com',

@@ -1,6 +1,5 @@
 import { it } from 'mocha';
-import chai from 'chai';
-import { request, expect } from 'chai/lib/chai';
+import chai, { request, expect } from 'chai';
 import http from 'chai-http';
 import app from '../../server';
 import reportData from '../asset/report';
@@ -27,6 +26,18 @@ const changeStatusTest = () => {
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body).to.have.a.property('status', 401);
+        expect(res.body).to.have.a.property('error');
+        done();
+      });
+  });
+  it('User should not change status if is not Admin ', (done) => {
+    request(app)
+      .patch('/api/v1/red-flags/1/status')
+      .set(reportData.validToken)
+      .send(reportData.newStatus)
+      .end((err, res) => {
+        expect(res).to.have.status(403);
+        expect(res.body).to.have.a.property('status', 403);
         expect(res.body).to.have.a.property('error');
         done();
       });
