@@ -1,6 +1,5 @@
 import { it } from 'mocha';
-import chai from 'chai';
-import { request, expect } from 'chai/lib/chai';
+import chai, { request, expect } from 'chai';
 import http from 'chai-http';
 import userData from '../asset/user';
 import app from '../../server';
