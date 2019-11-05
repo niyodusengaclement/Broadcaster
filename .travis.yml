@@ -14,8 +14,6 @@ env:
 
   global:
 
-    CC_TEST_REPORTER_ID=s_XCWpTMQ-yPhVje-pOG3g
-
 install:
 
    - npm install   
