@@ -23,8 +23,8 @@ const signinTest = () => {
       .post('/api/v1/auth/signin')
       .send(userData.invalidUser)
       .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body).to.have.a.property('status', 400);
+        expect(res).to.have.status(401);
+        expect(res.body).to.have.a.property('status', 401);
         expect(res.body).to.have.a.property('error', 'Invalid email or password');
         done();
       });
