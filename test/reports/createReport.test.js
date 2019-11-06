@@ -48,8 +48,8 @@ const createReportTest = () => {
       .set(reportData.validToken)
       .send(reportData.validReport)
       .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body).to.have.a.property('status', 400);
+        expect(res).to.have.status(201);
+        expect(res.body).to.have.a.property('status', 201);
         expect(res.body).to.have.a.property('data');
         done();
       });
