@@ -28,17 +28,7 @@ const getAllReportsTest = () => {
         done();
       });
   });
-  it('User should not get report if there is no stored records', (done) => {
-    request(app)
-      .get('/api/v1/red-flags')
-      .set(reportData.validToken)
-      .end((err, res) => {
-        expect(res).to.have.status(404);
-        expect(res.body).to.have.a.property('status', 404);
-        expect(res.body).to.have.a.property('error');
-        done();
-      });
-  });
+
   it('User should get reports if there is no error', (done) => {
     request(app)
       .get('/api/v1/red-flags')
