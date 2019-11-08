@@ -56,9 +56,9 @@ const editLocationTest = () => {
   });
   it('User should not modify modify location if report status is pending', (done) => {
     request(app)
-      .patch('/api/v1/red-flags/2/comment')
+      .patch('/api/v1/red-flags/2/location')
       .set(reportData.validToken)
-      .send(reportData.comment)
+      .send(reportData.location)
       .end((err, res) => {
         expect(res).to.have.status(403);
         expect(res.body).to.have.a.property('status', 403);
