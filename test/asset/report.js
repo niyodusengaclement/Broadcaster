@@ -11,9 +11,9 @@ const reportData = {
   validAdminToken: {
     'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTWlzdGljbyIsImlkIjo0LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NzI5NzcxNjksImV4cCI6MTYwNDUxMzE2OSwiaXNzIjoid3d3Lmp3dC5pbyJ9.3OYfg1jyMaNTQktxIMA31XTDzlk3yZQS4VqVl_aYSZU',
   },
-  location: '197783736 109735463',
+  location: { location: '197783736 109735463' },
   missingLocation: '',
-  newStatus: 'under investigation',
+  newStatus: { status: 'under investigation' },
   emptyStatus: '',
   comment: {
     title: 'Primary school fell down',
