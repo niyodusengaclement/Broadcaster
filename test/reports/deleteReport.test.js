@@ -41,7 +41,7 @@ const deleteReportTest = () => {
   });
   it('User should not delete report of others', (done) => {
     request(app)
-      .delete('/api/v1/red-flags/1')
+      .delete('/api/v1/red-flags/3')
       .set(reportData.validToken)
       .end((err, res) => {
         expect(res).to.have.status(403);
@@ -63,7 +63,7 @@ const deleteReportTest = () => {
   });
   it('User should be able to delete report if he provide token and valid report ID ', (done) => {
     request(app)
-      .delete('/api/v1/red-flags/1')
+      .delete('/api/v1/red-flags/4')
       .set(reportData.validToken)
       .end((err, res) => {
         expect(res).to.have.status(200);
