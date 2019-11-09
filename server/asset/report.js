@@ -38,6 +38,19 @@ const reportData = [
     videos: [],
     tag: 'corruption',
   },
+  {
+    id: 4,
+    title: 'TO avoid excess consumption of Alcohol',
+    type: 'intervention',
+    createdOn: '23-Aug-2019',
+    createdBy: 4,
+    comment: 'I am writing this because of many young people are poisoned theirselves in alcohol and smoking drugs',
+    location: '',
+    status: 'resolved',
+    images: [],
+    videos: [],
+    tag: 'Alcohol',
+  },
 
 ];
 
