@@ -8,6 +8,7 @@ import changeLocation from '../controllers/changeLocation';
 import editComment from '../controllers/editComment';
 import deleteRecord from '../controllers/deleteRecord';
 import changeStatus from '../controllers/changeStatus';
+import newRecord from '../controllers/createRecord';
 
 const routes = express.Router();
 
@@ -19,5 +20,6 @@ routes.patch('/red-flags/:red_Flag_Id/location', userAuthentication, changeLocat
 routes.patch('/red-flags/:red_Flag_Id/comment', userAuthentication, editComment);
 routes.delete('/red-flags/:red_Flag_Id', userAuthentication, deleteRecord);
 routes.patch('/red-flags/:red_Flag_Id/status', userAuthentication, changeStatus);
+routes.post('/red-flags', userAuthentication, newRecord);
 
 export default routes;

@@ -44,8 +44,8 @@ const reportData = {
   },
   missingFieldReport: {
     id: 4,
-    title: ' ',
-    type: ' ',
+    title: '',
+    type: '',
     createdOn: '20-Apr-2019',
     createdBy: 11,
     comment: 'One traffic police who has rank of Caporal asks me some money while I was stopping my car to let students cross te road to school and he threaten me to charge me 50000FRW of disobedience',
