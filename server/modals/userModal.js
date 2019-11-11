@@ -18,5 +18,9 @@ class UserModal {
   findReport(id) {
     return this.report.find((data) => data.id === id);
   }
+
+  findUserById(id) {
+    return this.user.find((data) => data.id === id);
+  }
 }
 export default new UserModal();

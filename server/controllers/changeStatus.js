@@ -1,4 +1,5 @@
 import userModal from '../modals/userModal';
+import notification from '../modals/notification';
 
 const changeStatus = (req, res) => {
   try {
@@ -22,7 +23,13 @@ const changeStatus = (req, res) => {
         error: 'Status is required and atleast with 4 characters long',
       });
     }
+    const userId = report.createdBy;
+    const user = userModal.findUserById(userId);
     report.status = req.body.status;
+    const message = `Your red-flag has been reviewed by Authoroties in duty and status has changed to ${report.status}.
+    The Broadcaster (c)2019`;
+    notification.sendEmail(user, message);
+    notification.sendSms(user, message);
     return res.status(200).json({
       status: 200,
       data: [{
@@ -34,7 +41,7 @@ const changeStatus = (req, res) => {
   } catch (err) {
     return res.status(500).json({
       status: 500,
-      error: 'Server error',
+      error: err,
     });
   }
 };
