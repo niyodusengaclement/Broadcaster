@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import signupValidation from '../helpers/signupValidation';
 import userModal from '../modals/userModal';
+import notification from '../modals/notification';
 
 
 const signup = async (req, res) => {
@@ -45,8 +46,10 @@ const signup = async (req, res) => {
   const options = { expiresIn: '365d', issuer: 'www.jwt.io' };
 
   const token = jwt.sign(payload, secret, options);
-
+  const mailMsg = 'You have successfully created account on The Broadcaster Community Site, Welcome once again';
   if (userModal.addUser(userInfo)) {
+    notification.sendEmail(userInfo, mailMsg);
+    notification.sendSms(userInfo, mailMsg);
     return res.status(201).header('x-auth', token).json({
       status: 201,
       message: 'User created successfully',
