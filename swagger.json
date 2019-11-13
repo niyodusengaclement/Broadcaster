@@ -1,0 +1,618 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Broadcaster is System enables any/every citizen to bring any form of corruption to the notice of appropriate authorities  and the general public. Users can also report on things that need government intervention",
+    "version": "1.0.3",
+    "title": "Broadcaster",
+    "contact": {
+      "email": "clementmistico@gmail.com"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations related to user"
+    },
+    {
+      "name": "Red-flag",
+      "description": "Operations about Red-flag"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {    
+    "/red-flags": {
+      "post": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Create a red-flag or Intervention report",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [          
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "in": "formData",
+            "name": "title",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "type",
+            "type": "string",
+            "enum": [ "Red-flag", "Intervention" ],
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "comment",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "location",
+            "description": "Latitude Longitute",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "images",
+            "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "videos",
+            "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "tag",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Red-flag successfully created"
+          },
+          "400": {
+            "description": "Invalid Input"
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "404": {
+            "description": "Red-flag not found"
+          } 
+        }
+      },
+      "get": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Fetch all red-flag and Intervetion records",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [          
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Red-flags successfully retrieved",
+            "schema": {
+              "$ref": "#/definitions/Red-flag"
+            }
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          }
+        }
+      }
+    },
+    "/red-flags/{red_Flag_Id}": {
+      "get": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Find Red-flag by ID",
+        "description": " ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "name": "red_Flag_Id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful retrieved",
+            "schema": {
+              "$ref": "#/definitions/Red-flag"
+            }
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "404": {
+            "description": "Red-flag not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Delete Red-flag | Performed by Owner's only ",
+        "description": " ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "name": "red_Flag_Id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted Successfully"
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "404": {
+            "description": "Red-flag not found"
+          }
+        }
+      }
+    },
+    "/red-flags/{red_Flag_Id}/location": {
+      "patch": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Change Location of a red-flag or Intervention report | Performed by Owner's only",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [          
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "name": "red_Flag_Id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "location",
+            "description": "Latitude Longitute",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Red-flag Location updated successfully"
+          },
+          "400": {
+            "description": "Invalid Input"
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "403": {
+            "description": "Access denied, Owner's only change Location"
+          },
+          "404": {
+            "description": "Red-flag not found"
+          } 
+        }
+      }
+    },
+    "/red-flags/{red_Flag_Id}/comment": {
+      "patch": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Modify a red-flag or Intervention report | Performed by Owner's only",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [          
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "name": "red_Flag_Id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Red-flag comment updated successfully"
+          },
+          "400": {
+            "description": "Invalid Input"
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "403": {
+            "description": "Access denied, Owner only modify comment"
+          },
+          "404": {
+            "description": "Red-flag not found"
+          } 
+        }
+      }
+    },
+    "/red-flags/{red_Flag_Id}/status": {
+      "patch": {
+        "tags": [
+          "Red-flag"
+        ],
+        "summary": "Change Status of a red-flag or Intervention report | Performed by Admin only",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [          
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          },
+          {
+            "name": "red_Flag_Id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "formData",
+            "name": "status",
+            "type": "string",
+            "required": true,
+            "enum": [ "Resolved", "Under Investigation", "Rejected" ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Red-flag Status updated successfully"
+          },
+          "400": {
+            "description": "Invalid Input"
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "403": {
+            "description": "Access denied, Admin only perform this"
+          },
+          "404": {
+            "description": "Red-flag not found"
+          }          
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Signup page",
+        "description": "Provide proper information to create account",
+        "operationId": "registerUser",
+        "consumes": "application/json",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": " Provide valid information",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }],
+        
+        "responses": {
+          "201": {
+            "description": "User created successfully ",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Operation failed"
+          }
+        }
+      }
+      
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "user information please",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successful logged in",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/auth/users": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all users | Performed by Admin only",
+        "description": " ",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth",
+            "in": "header",
+            "required":true,
+            "type":"string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful"
+          },
+          "401": {
+            "description": "Invalid Token supplied"
+          },
+          "403": {
+            "description": "Access denied!, Allowed by Admin only"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Red-flag": {
+      "type": "object",
+      "required": [
+        "title",
+        "type",
+        "comment"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "xml": {
+            "wrapped": true
+          },
+          "items": {
+            "type": "string",
+            "xml": {
+              "name": "photoUrl"
+            }
+          }
+        },
+        "videos": {
+          "type": "array",
+          "xml": {
+            "wrapped": true
+          },
+          "items": {
+            "type": "string",
+            "xml": {
+              "name": "photoUrl"
+            }
+          }
+        },
+        "tag": {
+          "type": "string"          
+        }
+      },
+
+      "xml": {
+        "name": "Red-flag"
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "required": [
+        "title",
+        "type",
+        "comment"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Comment"
+      }
+    },
+    "Login": {
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email":{
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "firstname",
+        "lastname",
+        "email",
+        "phoneNumber",
+        "username",
+        "password"
+      ],
+      "properties": {
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
