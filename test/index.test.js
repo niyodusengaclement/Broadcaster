@@ -8,6 +8,7 @@ import editCommentTest from './reports/editComment.test';
 import getSingleReportTest from './reports/singleReport.test';
 import deleteReportTest from './reports/deleteReport.test';
 import changeStatusTest from './reports/changeStatus.test';
+import getUsersTest from './user/users.test';
 
 describe('System should run perfect', () => {
   describe('User signup', signupTest);
@@ -19,4 +20,5 @@ describe('System should run perfect', () => {
   describe('Edit comment', editCommentTest);
   describe('Delete specific report', deleteReportTest);
   describe('Admin change status', changeStatusTest);
+  describe('List of users', getUsersTest);
 });
