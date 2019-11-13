@@ -32,7 +32,7 @@ const newRecord = (req, res) => {
         createdBy: req.user.id,
         comment: req.body.comment,
         location: req.body.location,
-        status: 'test',
+        status: 'pending',
         images: [],
         videos: [],
         tag: req.body.tag,
