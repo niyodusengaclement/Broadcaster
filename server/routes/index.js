@@ -9,11 +9,13 @@ import editComment from '../controllers/editComment';
 import deleteRecord from '../controllers/deleteRecord';
 import changeStatus from '../controllers/changeStatus';
 import newRecord from '../controllers/createRecord';
+import getUsers from '../controllers/getUsers';
 
 const routes = express.Router();
 
 routes.post('/auth/signup', signup);
 routes.post('/auth/signin', signin);
+routes.get('/auth/users', userAuthentication, getUsers);
 routes.get('/red-flags', userAuthentication, allReports);
 routes.get('/red-flags/:redFlagId', userAuthentication, oneRecord);
 routes.patch('/red-flags/:red_Flag_Id/location', userAuthentication, changeLocation);
