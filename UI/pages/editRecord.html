@@ -20,47 +20,42 @@
     </header>
     <main class="flex flex-column space-between content-center color-white shadow padding-30">
         <h2 class="text-center page-title">Update record</h2>
-        <form action="records.html">
+        <form action="records.html" name="editForm" autocomplete="off">
             <div class="field margin-bottom-10">
                 <label for="title">Title</label>
-                <input type="text" class="" name="title" id="title" placeholder="Title" required autofocus
+                <input type="text"  name="title" id="title" placeholder="Title" required autofocus
                        value="Corruption is a huge bane to Africa’s development."
-                       autocomplete="off">
+                       >
             </div>
             <div class="field margin-bottom-10">
                     <label for="title">Choose record type</label>
-                    <select name="record" id="record">
+                    <select name="record" id="record" required>
                         <option value="red-flag">Red-flag Record</option>
                         <option value="intervention">Intervention Record</option>
                     </select>
                 </div>
                 <div class="field margin-bottom-10">
                     <label for="location">Add Location</label>
-                    <input type="text" class="" name="location" id="location" placeholder="" value="-1.9523495,30.054957" autofocus
-                           autocomplete="off">
+                    <input type="text" name="location" id="location" placeholder="" value="-1.9523495,30.054957" autofocus>
                 </div>
             <div class="field margin-bottom-10">
                 <label for="image">Upload photo (Optional)</label>
                 <input type="file" class="width-50" name="image" id="image" placeholder="record Image">
-                <img src="../assets/images/cover_bg_1.jpg" class="shadow-12" alt="record thumbnail">
+                <img src="../assets/images/water.jpg" class="shadow-12" alt="record thumbnail">
             </div>
             <div class="field margin-bottom-10">
                 <label for="video">Upload Video (Optional)</label>
-                <input type="file" class="" name="video" id="video">
+                <input type="file"  name="video" id="video">
                 <video src="../assets/videos/flag.mp4" class="shadow-12 video-flg" alt="record thumbnail"></video>
             </div>
             <div class="field margin-bottom-10">
                 <label for="record">Comment</label>
                 <textarea name="record" id="record" cols="30" rows="15"
                           class="width-100" required> 
-                          Kavatiri noted that the overall average size of bribe was Rwf43,743 in 2016, Rwf36,173 in 2017, and Rwf58,065 in 2018.
-
+ Kavatiri noted that the overall average size of bribe was Rwf43,743 in 2016, Rwf36,173 in 2017, and Rwf58,065 in 2018.
 “This is nearly Rwf8 billion being paid in bribes. This is about the annual budget of a district. This is a lot of money. It means we just cannot afford to downplay the impact of bribery.”
-
 The share of bribery by institutions shows that local governments take the largest portion, 30.9 per cent, traffic police come second with 29.69 per cent, followed by the judiciary at 16.23 per cent.
-
 The judiciary, Kavatiri explained, have few individual cases but “they take a lot of money [bribe] and that’s why they come up at number three.”
-
 However, he noted that findings indicate that “in most cases, services are still delivered when bribes are not paid” 
                 </textarea>
             </div>
@@ -68,14 +63,12 @@ However, he noted that findings indicate that “in most cases, services are sti
                 <label for="label">Label</label>
                 <input type="text" class="padding-10 margin-vertical-20 width-25" placeholder="" value="Corruption">
             </div>
-            <button type="button" id="editRec" 
-            onclick="editRecord()"
-            class="button primary-color padding-10 margin-vertical-20 width-25" >Update
+            <button type="submit" id="editRec" class="button primary-color padding-10 margin-vertical-20 width-25" >Update
             </button>
         </form>
     </main>
     <footer class="flex flex-row content-center">
-        <div class="">© 2019 All Right Reserved, Broadcaster</div>
+        <div >© 2019 All Right Reserved, Broadcaster</div>
     </footer>
 </div>
 <script src="../js/scripts.js" type="application/javascript"></script>

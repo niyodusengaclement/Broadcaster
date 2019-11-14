@@ -85,7 +85,25 @@ header .title a{
 .flex-column {
     flex-direction: column;
 }
-
+@media (max-width: 996px) {
+    section.flex {
+        display: block;
+        flex-wrap: nowrap;
+    }
+    section.flex .block-display{
+        width: 100%;
+    }
+    section.flex-row {
+        flex-direction: column;
+        vertical-align: middle;
+    }
+    .available-records article .footer .record-info,
+    .my-records article .footer .record-info {
+    font-size: small;
+    padding-top: .25rem;
+    margin-left: 10px;
+}
+}
 .content-center {
     justify-content: center;
 }
@@ -341,6 +359,9 @@ video{
     font-size: .92857143em;
     font-weight: 700;
     text-transform: none;
+}
+.field span {
+    color: red;
 }
 .lable,
 .current-status span {
