@@ -20,11 +20,10 @@
     </header>
     <main class="flex flex-column space-between content-center color-white shadow padding-30">
         <h2 class="text-center page-title">Create record</h2>
-        <form action="">
+        <form action="./myRecords.html" name="createForm" autocomplete="off">
             <div class="field margin-bottom-10">
                 <label for="title">Title</label>
-                <input type="text" class="" name="title" id="title" placeholder="Title" required autofocus
-                       autocomplete="off">
+                <input type="text"  name="title" id="title" placeholder="Title" required autofocus>
             </div>
             <div class="field margin-bottom-10">
                 <label for="title">Choose record type</label>
@@ -36,16 +35,16 @@
             </div>
             <div class="field margin-bottom-10">
                 <label for="location">Add Location</label>
-                <input type="text" class="" name="location" id="location" placeholder="Latitude,Longitude (e.g: -1.9523495,30.054957)" required autofocus
-                       autocomplete="off">
+                <input type="text"  name="location" id="location" placeholder="Latitude,Longitude (e.g: -1.9523495,30.054957)" autofocus
+                       >
             </div>
             <div class="field margin-bottom-10">
                 <label for="image">Upload photo (Optional)</label>
-                <input type="file" class="" name="image" id="image">
+                <input type="file"  name="image" id="image">
             </div>
             <div class="field margin-bottom-10">
                 <label for="video">Upload Video (Optional)</label>
-                <input type="file" class="" name="video" id="video">
+                <input type="file"  name="video" id="video">
             </div>
             <div class="field margin-bottom-10">
                 <label for="record">Comment</label>
@@ -55,12 +54,12 @@
             <div class="add-label">
             <input type="text" class="padding-10 margin-vertical-20 width-25" placeholder="Add #label">
             </div>
-            <button type="submit" onclick="createRecord()" class="button primary-color padding-10 margin-vertical-20 width-25">Create record
+            <button type="submit" class="button primary-color padding-10 margin-vertical-20 width-25">Create record
             </button>
         </form>
     </main>
     <footer class="flex flex-row content-center">
-        <div class="">© 2019 All Right Reserved, Broadcaster</div>
+        <div >© 2019 All Right Reserved, Broadcaster</div>
     </footer>
 </div>
 <script src="../js/scripts.js" type="application/javascript"></script>

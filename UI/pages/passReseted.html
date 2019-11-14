@@ -17,20 +17,20 @@
     </header>
     <main class="flex-column space-between color-white shadow">
         <div class="flex flex-row content-center">
-            <form action="" method="post" role="form" id="loginForm" class="flex flex-column content-center width-50 padding-30 border-rounded">
+            <form action="./login.html" name="resetForm" onsubmit="return resetPassword()" class="flex flex-column content-center width-50 padding-30 border-rounded">
                 <h2 class="text-center">Enter a new Password</h2>
                 <div class="field">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Password" required>
+                    <input type="password" name="password" id="password" minlength="6" placeholder="Password" required>
+                    <span id="passwordRes"></span>
                 </div>
                 <div class="field">
                         <label for="confPassword">Comfirm Password</label>
                         <input type="password" name="confPassword" id="confPassword" placeholder="Comfirm Password" required>
-                </div>
+                        <span id="confPasswordRes"></span>
+                    </div>
                 <div class="flex flex-row space-between content-center">
-                    <button type="button" id="resetedButton"
-                            onclick="resetPassword()"
-                            class="button primary-color margin-vertical-30 padding-10 width-25">Reset</button>
+                    <button type="submit" id="resetedButton" class="button primary-color margin-vertical-30 padding-10 width-25">Reset</button>
                     <a href="login.html" class="margin-top-10 forget-password">I remember my password</a>
                 </div>
             </form>
