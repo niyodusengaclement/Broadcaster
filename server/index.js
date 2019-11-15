@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import fileupload from 'express-fileupload';
 import { serve, setup } from 'swagger-ui-express';
@@ -10,6 +11,7 @@ env.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(helmet());
 app.use(fileupload({ createParentPath: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

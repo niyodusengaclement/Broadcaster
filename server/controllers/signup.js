@@ -1,16 +1,11 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 import signupValidation from '../helpers/signupValidation';
 import userModal from '../modals/userModal';
 import notification from '../modals/notification';
+import users from '../asset/users';
 
-
-const signup = async (req, res) => {
-  const all = userModal.user;
-  const newId = all.length + 1;
-
-  const salt = await bcrypt.genSalt(10);
-  const passHash = await bcrypt.hash(req.body.password, salt);
+const newUser = async (req) => {
+  const newId = users.length + 1;
+  const passHash = await userModal.hashPassword(req.body.password);
   const userInfo = {
     id: newId,
     firstname: req.body.firstname,
@@ -21,6 +16,28 @@ const signup = async (req, res) => {
     password: passHash,
     isAdmin: false,
   };
+  return userInfo;
+};
+
+const insertData = async (req, res) => {
+  const userInfo = await newUser(req);
+  const token = await userModal.generateToken(userInfo);
+  const mailMsg = 'You have successfully created account on The Broadcaster Community Site, Welcome once again';
+  if (userModal.addUser(userInfo)) {
+    notification.SendNotification(userInfo, mailMsg);
+    return res.status(201).header('x-auth', token).json({
+      status: 201,
+      message: 'User created successfully',
+      data: {
+        ID: userInfo.id,
+        Token: token,
+      },
+    });
+  }
+  return {};
+};
+
+const signup = (req, res) => {
   const { error } = signupValidation(req.body);
   if (error) {
     return res.status(400).json({
@@ -35,30 +52,6 @@ const signup = async (req, res) => {
       error: 'Email already exist',
     });
   }
-
-  const payload = {
-    email: req.body.email,
-    username: req.body.username,
-    id: newId,
-    isAdmin: userInfo.isAdmin,
-  };
-  const secret = process.env.JWT_TOKEN;
-  const options = { expiresIn: '365d', issuer: 'www.jwt.io' };
-
-  const token = jwt.sign(payload, secret, options);
-  const mailMsg = 'You have successfully created account on The Broadcaster Community Site, Welcome once again';
-  if (userModal.addUser(userInfo)) {
-    notification.sendEmail(userInfo, mailMsg);
-    notification.sendSms(userInfo, mailMsg);
-    return res.status(201).header('x-auth', token).json({
-      status: 201,
-      message: 'User created successfully',
-      data: {
-        ID: newId,
-        Token: token,
-      },
-    });
-  }
-  return {};
+  return insertData(req, res);
 };
 export default signup;
