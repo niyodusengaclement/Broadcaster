@@ -315,7 +315,7 @@ video{
     font-family: 'Nunito', sans-serif;
 }
 .add-label input {
-    width: 250px;
+    width: 230px;
     padding: 0.5em 0 0.5em 0.5em;
     font-size: 1rem;
     line-height: 1.5;
@@ -367,6 +367,10 @@ video{
 .current-status span {
     color: green;
 }
+.tag{
+    width: 15px;
+    height: 15px;
+}
 .text-center {
     text-align: center;
 }
@@ -381,4 +385,8 @@ video{
 
 .border-rounded {
     border-radius: 0.3em;
+}
+#map {
+    height: 90%;
+    width: 100%;
 }
