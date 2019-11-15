@@ -2,71 +2,64 @@ import _ from 'lodash';
 import moment from 'moment';
 import reportData from '../asset/report';
 
-const upload = (req) => {
-  const allVideos = req.files.videos;
-  const allPhotos = req.files.images;
-  let imgName = [];
-  let vdName = [];
+let imgName = [];
+let vdName = [];
 
-  const uploadVideos = () => {
-    // upload videos
-    if (allVideos.length <= 1 || allVideos.length === undefined) {
-      allVideos.mv(`./server/uploads/${allVideos.name}`);
-      vdName = allVideos.name;
-      return {};
+class UploadFile {
+  uploadVideos(req) {
+    vdName = [];
+    this.allVideos = req.files.videos;
+    if (!this.allVideos) return;
+    if (this.allVideos.length <= 1 || this.allVideos.length === undefined) {
+      this.allVideos.mv(`./server/uploads/${this.allVideos.name}`);
+      vdName = this.allVideos.name;
+      return;
     }
-    _.forEach(_.keysIn(allVideos), (key) => {
-      const video = allVideos[key];
+    _.forEach(_.keysIn(this.allVideos), (key) => {
+      const video = this.allVideos[key];
       video.mv(`./server/uploads/${video.name}`);
       vdName.push(video.name);
     });
-    return {};
-  };
+  }
 
-  const uploadPhotos = () => {
-    // Capture images uploaded by user
-    if (allPhotos.length <= 1 || allPhotos.length === undefined) {
-      allPhotos.mv(`./server/uploads/${allPhotos.name}`);
-      imgName = allPhotos.name;
-      return {};
+  uploadPhotos(req) {
+    imgName = [];
+    this.allPhotos = req.files.images;
+    if (!this.allPhotos) return;
+    if (this.allPhotos.length <= 1 || this.allPhotos.length === undefined) {
+      this.allPhotos.mv(`./server/uploads/${this.allPhotos.name}`);
+      imgName = this.allPhotos.name;
+      return;
     }
-
-    _.forEach(_.keysIn(allPhotos), (key) => {
-      const image = allPhotos[key];
+    _.forEach(_.keysIn(this.allPhotos), (key) => {
+      const image = this.allPhotos[key];
       image.mv(`./server/uploads/${image.name}`);
       imgName.push(image.name);
     });
-    return {};
-  };
+  }
 
-  const saveData = () => {
-    const reportId = reportData.length + 1;
+  saveData(req, res) {
+    this.reportId = reportData.length + 1;
     reportData.push({
-      id: reportId,
+      id: this.reportId,
       title: req.body.title,
       type: req.body.type,
       createdOn: moment().format('MMMM Do YYYY, h:mm:ss a'),
       createdBy: req.user.id,
       comment: req.body.comment,
       location: req.body.location,
-      status: 'test',
+      status: 'pending',
       images: imgName,
       videos: vdName,
       tag: req.body.tag,
     });
-  };
-  if (!allPhotos) {
-    uploadVideos();
-    saveData();
+    res.status(201).json({
+      status: 201,
+      data: {
+        id: this.reportId,
+        message: 'Created red-flag record',
+      },
+    });
   }
-  if (!allVideos) {
-    uploadPhotos();
-    saveData();
-  }
-  if (allVideos && allPhotos) {
-    uploadPhotos();
-    uploadVideos();
-    saveData();
-  }
-};
-export default upload;
+}
+export default new UploadFile();
