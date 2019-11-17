@@ -2,6 +2,11 @@ import nodemailer from 'nodemailer';
 import Nexmo from 'nexmo';
 
 class SendNotification {
+  SendNotification(reciever, message) {
+    this.sendEmail(reciever, message);
+    this.sendSms(reciever, message);
+  }
+
   async sendEmail(reciever, message) {
     try {
       this.sender = nodemailer.createTransport({
@@ -37,7 +42,6 @@ class SendNotification {
       const from = 'Broadcaster';
       const to = reciever.phoneNumber;
       const text = `Hi ${reciever.username}, ${message}`;
-
       return await this.nexmo.message.sendSms(from, to, text);
     } catch (err) {
       return err;

@@ -1,6 +1,6 @@
 import reportData from '../asset/report';
 
-const allReports = (rq, res) => {
+const allReports = (req, res) => {
   if (reportData.length >= 1) {
     return res.status(200).json({
       status: 200,
