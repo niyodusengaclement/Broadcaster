@@ -7,10 +7,6 @@ let vdName = [];
 
 class UploadFile {
   uploadVideos(req) {
-<<<<<<< HEAD
-=======
-    vdName = [];
->>>>>>> 268a6166e794630ed8c498ac736478449f160999
     this.allVideos = req.files.videos;
     if (!this.allVideos) return;
     if (this.allVideos.length <= 1 || this.allVideos.length === undefined) {
@@ -26,10 +22,6 @@ class UploadFile {
   }
 
   uploadPhotos(req) {
-<<<<<<< HEAD
-=======
-    imgName = [];
->>>>>>> 268a6166e794630ed8c498ac736478449f160999
     this.allPhotos = req.files.images;
     if (!this.allPhotos) return;
     if (this.allPhotos.length <= 1 || this.allPhotos.length === undefined) {
@@ -66,11 +58,8 @@ class UploadFile {
         message: 'Created red-flag record',
       },
     });
-<<<<<<< HEAD
     imgName = [];
     vdName = [];
-=======
->>>>>>> 268a6166e794630ed8c498ac736478449f160999
   }
 }
 export default new UploadFile();
