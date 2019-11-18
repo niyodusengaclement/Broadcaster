@@ -46,6 +46,14 @@ const userData = {
     email: 'admin@gmail.com',
     password: 'iamadmin',
   },
+  validPassword: {
+    password: 'newpassword',
+    confirmPassword: 'newpassword',
+  },
+  invalidPassword: {
+    password: 'newpassword',
+    confirmPassword: 'fakepassword',
+  },
 
 };
 export default userData;
