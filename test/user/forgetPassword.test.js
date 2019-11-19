@@ -19,7 +19,7 @@ const forgetPasswordTest = () => {
   it('User should not forget password if he is not registered', (done) => {
     request(app)
       .post('/api/v1/auth/forget')
-      .send('email', 'example@ex.com')
+      .send({ email: 'example@ex.com' })
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body).to.have.a.property('status', 404);
@@ -30,7 +30,7 @@ const forgetPasswordTest = () => {
   it('User should get token to reset password on email if he is registered', (done) => {
     request(app)
       .post('/api/v1/auth/forget')
-      .send('email', 'oscarmugenzi@gmail.com')
+      .send({ email: 'clementmistico@gmail.com' })
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.have.a.property('status', 200);

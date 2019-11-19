@@ -9,8 +9,8 @@ import getSingleReportTest from './reports/singleReport.test';
 import deleteReportTest from './reports/deleteReport.test';
 import changeStatusTest from './reports/changeStatus.test';
 import getUsersTest from './user/users.test';
-import forgetPasswordTest from './user/forgetPassword';
-import resetPasswordTest from './user/resetPassword';
+import forgetPasswordTest from './user/forgetPassword.test';
+import resetPasswordTest from './user/resetPassword.test';
 
 describe('System should run perfect', () => {
   describe('User signup', signupTest);
