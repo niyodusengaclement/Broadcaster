@@ -8,21 +8,9 @@ import userData from '../asset/user';
 chai.use(http);
 
 const resetPasswordTest = () => {
-  it('User should not reset password if He doesn\'t provide token', (done) => {
+  it('User should not reset password if He provide invalid or expired link', (done) => {
     request(app)
-      .patch('/api/v1/auth/reset')
-      .send(userData.validPassword)
-      .end((err, res) => {
-        expect(res).to.have.status(401);
-        expect(res.body).to.have.a.property('status', 401);
-        expect(res.body).to.have.a.property('error');
-        done();
-      });
-  });
-  it('User should not reset password if He provide invalid token', (done) => {
-    request(app)
-      .patch('/api/v1/auth/reset')
-      .set(reportData.invalidToken)
+      .patch(`/api/v1/auth/reset/clementmistico@gmail.com/${reportData.invalidToken}`)
       .send(userData.validPassword)
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -33,8 +21,7 @@ const resetPasswordTest = () => {
   });
   it('User should not reset password if He provide mismatch password (password doesn\'t match) ', (done) => {
     request(app)
-      .patch('/api/v1/auth/reset')
-      .set(reportData.validToken)
+      .patch(`/api/v1/auth/reset/${userData.resetToken}`)
       .send(userData.invalidPassword)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -45,8 +32,7 @@ const resetPasswordTest = () => {
   });
   it('User should reset password if He provide valid token and matched password ', (done) => {
     request(app)
-      .patch('/api/v1/auth/reset')
-      .set(reportData.validToken)
+      .patch(`/api/v1/auth/reset/${userData.resetToken}`)
       .send(userData.validPassword)
       .end((err, res) => {
         expect(res).to.have.status(200);
