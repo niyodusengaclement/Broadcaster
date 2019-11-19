@@ -12,6 +12,9 @@ import newRecord from '../controllers/createRecord';
 import getUsers from '../controllers/getUsers';
 import grantAccess from '../middleware/access';
 import isAdmin from '../middleware/admin';
+import forgotPassword from '../controllers/forgetpassword';
+import verifyAuth from '../middleware/reset';
+import resetPassword from '../controllers/resetpassword';
 
 const routes = express.Router();
 
@@ -25,5 +28,7 @@ routes.patch('/red-flags/:red_Flag_Id/comment', [userAuthentication, grantAccess
 routes.delete('/red-flags/:red_Flag_Id', [userAuthentication, grantAccess], deleteRecord);
 routes.patch('/red-flags/:red_Flag_Id/status', [userAuthentication, isAdmin], changeStatus);
 routes.post('/red-flags', userAuthentication, newRecord);
+routes.post('/auth/forget', forgotPassword);
+routes.patch('/auth/reset/:email/:token', verifyAuth, resetPassword);
 
 export default routes;
