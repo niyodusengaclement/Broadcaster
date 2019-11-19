@@ -390,3 +390,8 @@ video{
     height: 90%;
     width: 100%;
 }
+.title-td {
+    font-weight: bold;
+    font-size: 20px;
+    padding-bottom: 15px;
+}
