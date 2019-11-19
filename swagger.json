@@ -477,6 +477,92 @@
           }
         }
       }
+    },
+    "/auth/forget": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Forgot password",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Link to reset your password sent to your email"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Email not found"
+          }
+        }
+      }
+    },
+    "/auth/reset/{email}/{token}": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Reset password",
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "token",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "confirmPassword",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Password doesn't match"
+          },
+          "401": {
+            "description": "Link has expired"
+          }
+        }
+      }
     }
   },
   "definitions": {
