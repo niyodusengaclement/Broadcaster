@@ -12,6 +12,9 @@
     "dev": "nodemon --require babel-core/register --require babel-polyfill ./server/index.js",
     "start": "node --require babel-core/register --require babel-polyfill ./server/index.js"
   },
+  "engines": {
+    "node": "10.16.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/niyodusengaclement/Broadcaster.git"
