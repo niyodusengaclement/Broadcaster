@@ -6,8 +6,8 @@ const doAction = async (req, res) => {
   try {
     const isExist = userModal.findUser(req.body.email);
     const token = await userModal.generateResetToken(isExist, isExist.password);
-    const url = `https://localhost:5000/api/v1/auth/reset/${isExist.email}/${token}`;
-    const msg = `You requested for a password reset, kindly use this link ${url} to reset your password`;
+    const url = `https://andelabroadcaster.herokuapp.com/api/v1/auth/reset/${isExist.email}/${token}`;
+    const msg = `You requested for a password reset, kindly click this link ${url} to reset your password`;
     await notification.sendEmail(isExist, msg);
     return res.status(200).json({
       status: 200,
