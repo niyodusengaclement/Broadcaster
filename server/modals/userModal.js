@@ -7,6 +7,7 @@ class UserModal {
   constructor() {
     this.user = users;
     this.report = reportData;
+    this.options = { expiresIn: '1d', issuer: 'www.jwt.io' };
   }
 
   findUser(email) {
@@ -47,6 +48,21 @@ class UserModal {
       this.salt = await bcrypt.genSalt(10);
       this.passHash = await bcrypt.hash(password, this.salt);
       return this.passHash;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  generateResetToken(info, secret) {
+    try {
+      const payload = {
+        email: info.email,
+        username: info.username,
+        id: info.id,
+        isAdmin: info.isAdmin,
+      };
+      const token = jwt.sign(payload, secret, this.options);
+      return token;
     } catch (err) {
       return err;
     }
