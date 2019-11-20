@@ -8,8 +8,12 @@ Broadcaster enables any/every citizen to bring any form of corruption to the not
 * CSS
 * Javascript
 
+### GitHub repository link 
+[Broadcaster/Repo](https://github.com/niyodusengaclement/Broadcaster)
 ### GitHub UI link 
 [Broadcaster/UI link](https://niyodusengaclement.github.io/Broadcaster/UI)
+### Heroku app Link
+[Broadcaster/Heroku app Link](https://andelabroadcaster.herokuapp.com/api-docs)
 
 --------------------------------------------------------------------------
 
@@ -28,7 +32,8 @@ Broadcaster enables any/every citizen to bring any form of corruption to the not
 | /api/v1/red-flags/:red_Flag_Id/location| PATCH | Change location of specific red-flag |
 | /api/v1/red-flags/:red_Flag_Id/comment| PATCH | Modify comment of specific red-flag |
 | /api/v1/red-flags/:red_Flag_Id/status| PATCH | Change status of specific red-flag |
-| /api/v1/red-flags/:red_Flag_Id| Delete | Delete specific red-flag |
+| /api/v1/auth/forget| POST | Forgot password |
+| /api/v1/auth/reset/:email/:token| PATCH | Reset password |
 
 ## Used Tools
 
@@ -90,4 +95,6 @@ It will install all packages and dependencies.
 ---
 
 ## License & copyright
+MIT License
+
 Copyright (c) NIYODUSENGA Clement
