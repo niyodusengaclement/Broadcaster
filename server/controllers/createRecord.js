@@ -7,7 +7,7 @@ const newRecord = (req, res) => {
     if (error) {
       return res.status(400).json({
         status: 400,
-        error: error.details[0].message,
+        error: error.details[0].message.split('"').join(''),
       });
     }
     if (!req.files) return upload.saveData(req, res);
