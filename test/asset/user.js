@@ -54,7 +54,7 @@ const userData = {
     password: 'newpassword',
     confirmPassword: 'fakepassword',
   },
-  resetToken: 'clementmistico@gmail.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnRtaXN0aWNvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTWlzdGljbyIsImlkIjo1LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NzQxNzMxNzcsImV4cCI6MTU3NDI1OTU3NywiaXNzIjoid3d3Lmp3dC5pbyJ9.XDVnP2S0d2jwz7gylEMZFwcbv8okXEcj2AIFDMXuFb4',
+  resetToken: 'clementmistico@gmail.com/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsZW1lbnRtaXN0aWNvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTWlzdGljbyIsImlkIjo1LCJpc0FkbWluIjp0cnVlLCJpYXQiOjE1NzQyOTA4MjMsImV4cCI6MTYwNTgyNjgyMywiaXNzIjoid3d3Lmp3dC5pbyJ9.7hWJ58fhgyDd15cPWjxPjxyPwKah51jlr-xQOA-yQxg',
 
 };
 export default userData;

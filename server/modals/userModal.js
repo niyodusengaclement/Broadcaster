@@ -7,7 +7,7 @@ class UserModal {
   constructor() {
     this.user = users;
     this.report = reportData;
-    this.options = { expiresIn: '1d', issuer: 'www.jwt.io' };
+    this.options = { expiresIn: '365d', issuer: 'www.jwt.io' };
   }
 
   findUser(email) {
