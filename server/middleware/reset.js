@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
   try {
     const user = userModal.findUser(email);
     const secret = user.password;
-    const options = { expiresIn: '1d', issuer: 'www.jwt.io' };
+    const options = { expiresIn: '365d', issuer: 'www.jwt.io' };
     const decoded = jwt.verify(token, secret, options);
     req.user = decoded;
     return next();
