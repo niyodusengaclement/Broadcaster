@@ -35,8 +35,8 @@ class SendNotification {
   async sendSms(reciever, message) {
     try {
       this.nexmo = new Nexmo({
-        apiKey: '257d3481',
-        apiSecret: 'vHE3jIc2W2hqfNcH',
+        apiKey: process.env.SMS_API_KEY,
+        apiSecret: process.env.SMS_API_SECRET,
       });
 
       const from = 'Broadcaster';

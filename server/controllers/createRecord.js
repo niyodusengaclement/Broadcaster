@@ -1,7 +1,7 @@
 import reportValidation from '../helpers/newReportValidation';
 import upload from '../modals/upload';
 
-const newRecord = (req, res) => {
+const newRecord = async (req, res) => {
   try {
     const { error } = reportValidation(req.body);
     if (error) {
@@ -11,9 +11,9 @@ const newRecord = (req, res) => {
       });
     }
     if (!req.files) return upload.saveData(req, res);
-    upload.uploadVideos(req);
-    upload.uploadPhotos(req);
-    return upload.saveData(req, res);
+    await upload.uploadVideos(req);
+    await upload.uploadPhotos(req);
+    return await upload.saveData(req, res);
   } catch (err) {
     return res.status(500).json({
       status: 500,
