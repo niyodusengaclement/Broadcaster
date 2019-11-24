@@ -1,10 +1,10 @@
-import users from '../asset/users';
+import userModal from '../modals/userModal';
 
 const getUsers = (req, res) => {
   try {
     return res.status(200).json({
       status: 200,
-      data: users,
+      data: userModal.allUsers(),
     });
   } catch (err) {
     return res.status(500).json({

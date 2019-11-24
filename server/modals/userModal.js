@@ -26,6 +26,10 @@ class UserModal {
     return this.user.find((data) => data.id === id);
   }
 
+  allUsers() {
+    return this.user;
+  }
+
   generateToken(info) {
     try {
       this.payload = {

@@ -37,7 +37,7 @@ const insertData = async (req, res) => {
   return {};
 };
 
-const signup = (req, res) => {
+const signup = async (req, res) => {
   const { error } = signupValidation(req.body);
   if (error) {
     return res.status(400).json({
@@ -52,6 +52,7 @@ const signup = (req, res) => {
       error: 'Email already exist',
     });
   }
-  return insertData(req, res);
+  await insertData(req, res);
+  return {};
 };
 export default signup;
