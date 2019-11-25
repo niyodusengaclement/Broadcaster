@@ -16,12 +16,21 @@ header {
 main section p {
     margin-left: auto;
     margin-right: auto;
-    color: rgb(221, 218, 218);
+    font-family: 'Nunito', sans-serif;
+    color: #ffffff;
     text-align: justify;
     padding-left: 15px;
     padding-right: 15px;
-    font-weight: 200;
-    font-size: 20px;
+    font-weight: 100;
+    font-size: 17px;
+}
+@media (max-width: 583px) {
+    main section p {
+        padding-right: 23px;
+    }
+    body {
+        margin-right: 25px;
+    }
 }
 
 main section:first-child .button {

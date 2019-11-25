@@ -6,6 +6,10 @@ header .user-menus a {
 header .user-menus a:last-child {
     margin-right: 0;
 }
+.create-record-btn {
+    height: 45px;
+    font-size: ;
+}
 
 .create-record .field input,
 .edit-record .field input {
@@ -80,7 +84,7 @@ header .user-menus a:last-child {
     margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
-    font-size: 1.1rem;
+    font-size: 15px;
 }
 
 .available-records article .body,
