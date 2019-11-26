@@ -2,6 +2,7 @@ body {
     font-family: 'Nunito', sans-serif;
     background-color:#ece8e8ca;
     overflow-x:hidden;
+    font-size: 15px;
     margin: 0;
     padding: 0;
 }
@@ -271,7 +272,7 @@ video{
     border: none;
     background: #ece8e8ca none;
     color: rgba(0, 0, 0, 0.6);
-    padding: 0.7em 3em 0.5em 2rem;
+    padding: 1em 2em 0.2em 2em;
     margin-top: 2px;
     text-align: center;
     display: block;
@@ -295,6 +296,7 @@ video{
 .primary-color {
     background-color: #68af62 !important;
     color: #ffffff;
+    text-align: center;
 }
 
 .active-button {
