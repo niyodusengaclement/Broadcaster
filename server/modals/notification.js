@@ -7,7 +7,7 @@ class SendNotification {
     this.sendSms(reciever, message);
   }
 
-  async sendEmail(reciever, message) {
+  sendEmail(reciever, message) {
     try {
       this.sender = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -26,13 +26,13 @@ class SendNotification {
         text: `hello ${reciever.username}
         ${message}`,
       };
-      return await this.sender.sendMail(this.mailOptions);
+      return this.sender.sendMail(this.mailOptions);
     } catch (err) {
       return err;
     }
   }
 
-  async sendSms(reciever, message) {
+  sendSms(reciever, message) {
     try {
       this.nexmo = new Nexmo({
         apiKey: process.env.SMS_API_KEY,
@@ -42,7 +42,7 @@ class SendNotification {
       const from = 'Broadcaster';
       const to = reciever.phoneNumber;
       const text = `Hi ${reciever.username}, ${message}`;
-      return await this.nexmo.message.sendSms(from, to, text);
+      return this.nexmo.message.sendSms(from, to, text);
     } catch (err) {
       return err;
     }

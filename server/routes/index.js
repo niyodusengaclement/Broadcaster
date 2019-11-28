@@ -1,34 +1,26 @@
 import express from 'express';
-import signup from '../controllers/signup';
-import signin from '../controllers/signin';
 import userAuthentication from '../middleware/auth';
-import allReports from '../controllers/AllReports';
-import oneRecord from '../controllers/oneRecord';
-import changeLocation from '../controllers/changeLocation';
-import editComment from '../controllers/editComment';
-import deleteRecord from '../controllers/deleteRecord';
-import changeStatus from '../controllers/changeStatus';
-import newRecord from '../controllers/createRecord';
-import getUsers from '../controllers/getUsers';
 import grantAccess from '../middleware/access';
 import isAdmin from '../middleware/admin';
-import forgotPassword from '../controllers/forgetpassword';
 import verifyAuth from '../middleware/reset';
-import resetPassword from '../controllers/resetpassword';
+import report from '../controllers/report';
+import users from '../controllers/users';
+
 
 const routes = express.Router();
 
-routes.post('/auth/signup', signup);
-routes.post('/auth/signin', signin);
-routes.get('/auth/users', [userAuthentication, isAdmin], getUsers);
-routes.get('/red-flags', userAuthentication, allReports);
-routes.get('/red-flags/:redFlagId', userAuthentication, oneRecord);
-routes.patch('/red-flags/:red_Flag_Id/location', [userAuthentication, grantAccess], changeLocation);
-routes.patch('/red-flags/:red_Flag_Id/comment', [userAuthentication, grantAccess], editComment);
-routes.delete('/red-flags/:red_Flag_Id', [userAuthentication, grantAccess], deleteRecord);
-routes.patch('/red-flags/:red_Flag_Id/status', [userAuthentication, isAdmin], changeStatus);
-routes.post('/red-flags', userAuthentication, newRecord);
-routes.post('/auth/forget', forgotPassword);
-routes.patch('/auth/reset/:email/:token', verifyAuth, resetPassword);
+routes.post('/auth/signup', users.signup);
+routes.post('/auth/signin', users.signin);
+routes.get('/auth/users', userAuthentication, isAdmin, users.getUsers);
+routes.post('/auth/forget', users.forgetPassword);
+routes.patch('/auth/reset/:email/:token', verifyAuth, users.resetPassword);
+
+routes.post('/red-flags', userAuthentication, report.newRecord);
+routes.get('/red-flags/:redFlagId', userAuthentication, report.singleReport);
+routes.get('/red-flags', userAuthentication, report.allReports);
+routes.patch('/red-flags/:red_Flag_Id/comment', userAuthentication, grantAccess, report.editComment);
+routes.patch('/red-flags/:red_Flag_Id/location', userAuthentication, grantAccess, report.changeLocation);
+routes.patch('/red-flags/:red_Flag_Id/status', userAuthentication, isAdmin, report.changeStatus);
+routes.delete('/red-flags/:red_Flag_Id', userAuthentication, grantAccess, report.deleteRecord);
 
 export default routes;
