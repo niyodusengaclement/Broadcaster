@@ -6,39 +6,39 @@ let imgName = [];
 let vdName = [];
 
 class UploadFile {
-  async uploadVideos(req) {
+  uploadVideos(req) {
     this.allVideos = req.files.videos;
     if (!this.allVideos) return;
     if (this.allVideos.length <= 1 || this.allVideos.length === undefined) {
-      vdName = await this.allVideos.name;
-      await this.allVideos.mv(`./server/uploads/${this.allVideos.name}`);
+      vdName = this.allVideos.name;
+      this.allVideos.mv(`./server/uploads/${this.allVideos.name}`);
       return;
     }
-    _.forEach(_.keysIn(this.allVideos), async (key) => {
-      const video = await this.allVideos[key];
-      await vdName.push(video.name);
-      await video.mv(`./server/uploads/${video.name}`);
+    _.forEach(_.keysIn(this.allVideos), (key) => {
+      const video = this.allVideos[key];
+      vdName.push(video.name);
+      video.mv(`./server/uploads/${video.name}`);
     });
   }
 
-  async uploadPhotos(req) {
+  uploadPhotos(req) {
     this.allPhotos = req.files.images;
     if (!this.allPhotos) return;
     if (this.allPhotos.length <= 1 || this.allPhotos.length === undefined) {
-      imgName = await this.allPhotos.name;
-      await this.allPhotos.mv(`./server/uploads/${this.allPhotos.name}`);
+      imgName = this.allPhotos.name;
+      this.allPhotos.mv(`./server/uploads/${this.allPhotos.name}`);
       return;
     }
-    _.forEach(_.keysIn(this.allPhotos), async (key) => {
-      const image = await this.allPhotos[key];
-      await imgName.push(image.name);
-      await image.mv(`./server/uploads/${image.name}`);
+    _.forEach(_.keysIn(this.allPhotos), (key) => {
+      const image = this.allPhotos[key];
+      imgName.push(image.name);
+      image.mv(`./server/uploads/${image.name}`);
     });
   }
 
-  async saveData(req, res) {
+  saveData(req, res) {
     this.reportId = reportData.length + 1;
-    await reportData.push({
+    reportData.push({
       id: this.reportId,
       title: req.body.title,
       type: req.body.type,
