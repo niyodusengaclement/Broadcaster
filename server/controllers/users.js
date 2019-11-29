@@ -48,7 +48,7 @@ const users = {
     return userInfo;
   },
 
-  signin(req, res) {
+  async signin(req, res) {
     const { error } = validation.signinValidation(req.body);
     if (error) {
       return res.status(400).json({
@@ -64,7 +64,7 @@ const users = {
       });
     }
     if (exist) {
-      const isValid = bcrypt.compare(req.body.password, exist.password);
+      const isValid = await bcrypt.compare(req.body.password, exist.password);
       if (!isValid) {
         return res.status(401).json({
           status: 401,
@@ -115,7 +115,7 @@ const users = {
     });
   },
 
-  resetPassword(req, res) {
+  async resetPassword(req, res) {
     const { password, confirmPassword } = req.body;
     if (!password || password.length < 6) {
       return res.status(400).json({
@@ -130,7 +130,7 @@ const users = {
       });
     }
     const user = userModal.findUser(req.user.email);
-    const newPassword = userModal.hashPassword(password);
+    const newPassword = await userModal.hashPassword(password);
     user.password = newPassword;
     return res.status(200).json({
       status: 200,
