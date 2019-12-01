@@ -1,18 +1,20 @@
 import joi from 'joi';
 
-const validation = {
+class Validation {
   emailValidator(input) {
     const emailSchema = {
       email: joi.string().email().required(),
     };
     return joi.validate(input, emailSchema);
-  },
+  }
+
   locationValidation(input) {
     const validateSchema = {
       location: joi.string().required(),
     };
     return joi.validate(input, validateSchema);
-  },
+  }
+
   reportValidation(data) {
     const reportSchema = {
       id: joi.optional(),
@@ -28,14 +30,16 @@ const validation = {
       tag: joi.optional(),
     };
     return joi.validate(data, reportSchema);
-  },
+  }
+
   signinValidation(input) {
     const validateSchema = {
       email: joi.string().email().required(),
       password: joi.string().required(),
     };
     return joi.validate(input, validateSchema);
-  },
+  }
+
   signupValidation(input) {
     const validateSchema = {
       firstname: joi.string().required(),
@@ -48,6 +52,6 @@ const validation = {
       isAdmin: joi.optional(),
     };
     return joi.validate(input, validateSchema);
-  },
-};
-export default validation;
+  }
+}
+export default new Validation();

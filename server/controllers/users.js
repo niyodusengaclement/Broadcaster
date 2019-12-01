@@ -4,7 +4,7 @@ import notification from '../modals/notification';
 import userModal from '../modals/userModal';
 import validation from '../helpers/validation';
 
-const users = {
+class Users {
   async signup(req, res) {
     const { error } = validation.signupValidation(req.body);
     if (error) {
@@ -46,7 +46,7 @@ const users = {
       });
     }
     return userInfo;
-  },
+  }
 
   async signin(req, res) {
     const { error } = validation.signinValidation(req.body);
@@ -81,14 +81,14 @@ const users = {
         token: userToken,
       },
     });
-  },
+  }
 
   getUsers(req, res) {
     return res.status(200).json({
       status: 200,
       data: userModal.allUsers(),
     });
-  },
+  }
 
   forgetPassword(req, res) {
     const { error } = validation.emailValidator(req.body);
@@ -113,7 +113,7 @@ const users = {
       status: 200,
       message: 'Link to reset password sent to your email',
     });
-  },
+  }
 
   async resetPassword(req, res) {
     const { password, confirmPassword } = req.body;
@@ -136,7 +136,6 @@ const users = {
       status: 200,
       message: 'Password updated successfully',
     });
-  },
-
-};
-export default users;
+  }
+}
+export default new Users();

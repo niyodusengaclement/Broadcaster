@@ -4,7 +4,7 @@ import reportData from '../asset/report';
 import notification from '../modals/notification';
 import validation from '../helpers/validation';
 
-const Report = {
+class Report {
   newRecord(req, res) {
     const { error } = validation.reportValidation(req.body);
     if (error) {
@@ -17,7 +17,7 @@ const Report = {
     upload.uploadVideos(req);
     upload.uploadPhotos(req);
     return upload.saveData(req, res);
-  },
+  }
 
   singleReport(req, res) {
     const reportId = parseInt(req.params.redFlagId, 10);
@@ -32,7 +32,7 @@ const Report = {
       status: 404,
       error: 'Record not found',
     });
-  },
+  }
 
   allReports(req, res) {
     if (reportData.length >= 1) {
@@ -45,7 +45,7 @@ const Report = {
       status: 404,
       error: 'No data found',
     });
-  },
+  }
 
   editComment(req, res) {
     const { error } = validation.reportValidation(req.body);
@@ -69,7 +69,7 @@ const Report = {
       },
       ],
     });
-  },
+  }
 
   changeLocation(req, res) {
     const { error } = validation.locationValidation(req.body);
@@ -89,7 +89,7 @@ const Report = {
       },
       ],
     });
-  },
+  }
 
   changeStatus(req, res) {
     if (!req.myReport) {
@@ -119,7 +119,7 @@ const Report = {
       },
       ],
     });
-  },
+  }
 
   deleteRecord(req, res) {
     const allReports = userModal.report;
@@ -134,7 +134,6 @@ const Report = {
       },
       ],
     });
-  },
-
-};
-export default Report;
+  }
+}
+export default new Report();

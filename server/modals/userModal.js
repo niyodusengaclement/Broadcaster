@@ -39,8 +39,7 @@ class UserModal {
         isAdmin: info.isAdmin,
       };
       const secret = process.env.JWT_TOKEN;
-      const options = { expiresIn: '365d', issuer: 'www.jwt.io' };
-      const token = jwt.sign(this.payload, secret, options);
+      const token = jwt.sign(this.payload, secret, this.options);
       return token;
     } catch (err) {
       return err;

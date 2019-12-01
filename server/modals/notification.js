@@ -7,7 +7,7 @@ class SendNotification {
     this.sendSms(reciever, message);
   }
 
-  sendEmail(reciever, message) {
+  async sendEmail(reciever, message) {
     try {
       this.sender = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -26,7 +26,7 @@ class SendNotification {
         text: `hello ${reciever.username}
         ${message}`,
       };
-      return this.sender.sendMail(this.mailOptions);
+      return await this.sender.sendMail(this.mailOptions);
     } catch (err) {
       return err;
     }
