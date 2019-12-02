@@ -1,15 +1,15 @@
 import { it } from 'mocha';
 import chai, { request, expect } from 'chai';
 import http from 'chai-http';
-import app from '../../server';
-import reportData from '../asset/report';
+import app from '../../../server';
+import reportData from '../../asset/report';
 
 chai.use(http);
 
 const getAllReportsTest = () => {
   it('User should not read reports if no token provided', (done) => {
     request(app)
-      .get('/api/v1/red-flags')
+      .get('/api/v2/red-flags')
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body).to.have.a.property('status', 401);
@@ -19,7 +19,7 @@ const getAllReportsTest = () => {
   });
   it('User should not read reports if he provide invalid or malformatted token', (done) => {
     request(app)
-      .get('/api/v1/red-flags')
+      .get('/api/v2/red-flags')
       .set(reportData.invalidToken)
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -31,7 +31,7 @@ const getAllReportsTest = () => {
 
   it('User should get reports if there is no error', (done) => {
     request(app)
-      .get('/api/v1/red-flags')
+      .get('/api/v2/red-flags')
       .set(reportData.validToken)
       .end((err, res) => {
         expect(res).to.have.status(200);
