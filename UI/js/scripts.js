@@ -32,7 +32,7 @@ const readrecord = () => { window.location = '../pages/viewRecord.html'; };
 const deleterecord = (title) => {
   const ok = window.confirm(`Are sure, you want to delete this report? \n ${title}`);
   if (ok) {
-    location = '../pages/recordDeleted.html';
+    location = '../pages/records.html';
   }
 };
 

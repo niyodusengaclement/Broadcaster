@@ -8,7 +8,6 @@ header .user-menus a:last-child {
 }
 .create-record-btn {
     height: 45px;
-    font-size: ;
 }
 
 .create-record .field input,
@@ -168,8 +167,4 @@ header .user-menus a:last-child {
 }
 .budge {
     font-weight: 500;
-}
-
-.my-records article .footer .delete-record {
-    background-color: rgba(255, 0, 0, .5);
 }
