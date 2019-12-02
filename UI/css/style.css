@@ -282,17 +282,24 @@ video{
 .editBtns {
     cursor: pointer;
     min-height: 1em;
+    min-width: 3em;
     outline: none;
     border: none;
     vertical-align: middle;
     background: #68af62 none;
-    color: rgba(0, 0, 0, 0.6);
-    padding: 0.5em 1em 0.5em;
+    color: rgb(0, 0, 0);
+    padding: 0.5em 1em 0.5em; 
     border-radius: 0.2rem;
     text-align: center;
+    margin-left: 0px;
+    margin-right: 20px;
     display: table-cell;
     font-family: 'Nunito', sans-serif;
 }
+.delete-record {
+    background: rgb(179, 7, 7);
+}
+
 .primary-color {
     background-color: #68af62 !important;
     color: #ffffff;
