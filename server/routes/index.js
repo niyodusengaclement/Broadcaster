@@ -1,8 +1,7 @@
 import express from 'express';
-import auth from '../middleware/auth';
-import report from '../controllers/report';
-import users from '../controllers/users';
-
+import auth from '../middleware/v1/auth';
+import report from '../controllers/v1/report';
+import users from '../controllers/v1/users';
 
 const routes = express.Router();
 

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import userModal from '../modals/userModal';
+import userModal from '../../modals/v1/userModal';
 
 class Authentication {
   userAuthentication(req, res, next) {

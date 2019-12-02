@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import reportData from '../asset/report';
+import reportData from '../../asset/report';
 
 let imgName = [];
 let vdName = [];

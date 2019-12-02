@@ -1,8 +1,8 @@
-import upload from '../modals/upload';
-import userModal from '../modals/userModal';
-import reportData from '../asset/report';
-import notification from '../modals/notification';
-import validation from '../helpers/validation';
+import upload from '../../modals/v1/upload';
+import userModal from '../../modals/v1/userModal';
+import reportData from '../../asset/report';
+import notification from '../../modals/notification';
+import validation from '../../helpers/validation';
 
 class Report {
   newRecord(req, res) {

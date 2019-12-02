@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
-import list from '../asset/users';
-import notification from '../modals/notification';
-import userModal from '../modals/userModal';
-import validation from '../helpers/validation';
+import list from '../../asset/users';
+import notification from '../../modals/notification';
+import userModal from '../../modals/v1/userModal';
+import validation from '../../helpers/validation';
 
 class Users {
   async signup(req, res) {
