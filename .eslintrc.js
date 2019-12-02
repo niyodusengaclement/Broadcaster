@@ -18,5 +18,6 @@ module.exports = {
   rules: {
     "linebreak-style":0,
     "require-await": 1,
+    "class-methods-use-this": 0,
   },
 };
