@@ -5,7 +5,7 @@ import fileupload from 'express-fileupload';
 import { serve, setup } from 'swagger-ui-express';
 import env from 'dotenv';
 import compression from 'compression';
-import routes from './routes';
+import routes from './routes/index';
 import swaggerDoc from '../swagger.json';
 
 env.config();

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import users from '../asset/users';
-import reportData from '../asset/report';
+import users from '../../asset/users';
+import reportData from '../../asset/report';
 
 class UserModal {
   constructor() {

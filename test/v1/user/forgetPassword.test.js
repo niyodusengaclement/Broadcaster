@@ -1,7 +1,7 @@
 import { it } from 'mocha';
 import chai, { request, expect } from 'chai';
 import http from 'chai-http';
-import app from '../../server';
+import app from '../../../server';
 
 chai.use(http);
 
