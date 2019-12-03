@@ -1,5 +1,4 @@
 import bcrypt from 'bcryptjs';
-import list from '../../asset/users';
 import notification from '../../modals/notification';
 import userModal from '../../modals/v2/userModal';
 import validation from '../../helpers/validation';
@@ -13,39 +12,47 @@ class Users {
         error: error.details[0].message.split('"').join(''),
       });
     }
-    const exist = userModal.findUser(req.body.email);
-    if (exist) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Email already exist',
+    try {
+      const exist = await userModal.findUser(req.body.email);
+      if (exist) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Email already exist',
+        });
+      }
+      const passHash = await userModal.hashPassword(req.body.password);
+      const userInfo = [
+        req.body.firstname,
+        req.body.lastname,
+        req.body.email,
+        req.body.phoneNumber,
+        req.body.username,
+        passHash,
+      ];
+      const user = await userModal.addUser(userInfo);
+      const mailMsg = 'You have successfully created account on The Broadcaster Community Site, Welcome once again';
+      if (user) {
+        const userToken = userModal.generateToken(user);
+        notification.SendNotification(user, mailMsg);
+        return res.status(201).header('x-auth', userToken).json({
+          status: 201,
+          message: 'User created successfully',
+          data: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            phoneNumber: user.phone,
+            token: userToken,
+          },
+        });
+      }
+      return user;
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal Server Error',
       });
     }
-    const newId = list.length + 1;
-    const passHash = await userModal.hashPassword(req.body.password);
-    const userInfo = {
-      id: newId,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
-      username: req.body.username,
-      password: passHash,
-      isAdmin: false,
-    };
-    const userToken = userModal.generateToken(userInfo);
-    const mailMsg = 'You have successfully created account on The Broadcaster Community Site, Welcome once again';
-    if (userModal.addUser(userInfo)) {
-      notification.SendNotification(userInfo, mailMsg);
-      return res.status(201).header('x-auth', userToken).json({
-        status: 201,
-        message: 'User created successfully',
-        data: {
-          id: userInfo.id,
-          token: userToken,
-        },
-      });
-    }
-    return userInfo;
   }
 
   async signin(req, res) {
@@ -56,14 +63,14 @@ class Users {
         error: error.details[0].message.split('"').join(''),
       });
     }
-    const exist = userModal.findUser(req.body.email);
-    if (!exist) {
-      return res.status(401).json({
-        status: 401,
-        error: 'Invalid email or password',
-      });
-    }
-    if (exist) {
+    try {
+      const exist = await userModal.findUser(req.body.email);
+      if (!exist) {
+        return res.status(401).json({
+          status: 401,
+          error: 'Invalid email or password',
+        });
+      }
       const isValid = await bcrypt.compare(req.body.password, exist.password);
       if (!isValid) {
         return res.status(401).json({
@@ -71,16 +78,24 @@ class Users {
           error: 'Invalid email or password',
         });
       }
+      const userToken = userModal.generateToken(exist);
+      return res.status(200).header('x-auth', userToken).json({
+        status: 200,
+        message: 'User is successfully logged in',
+        data: {
+          id: exist.id,
+          username: exist.username,
+          email: exist.email,
+          phoneNumber: exist.phone,
+          token: userToken,
+        },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal Server Error',
+      });
     }
-    const userToken = userModal.generateToken(exist);
-    return res.status(200).header('x-auth', userToken).json({
-      status: 200,
-      message: 'User is successfully logged in',
-      data: {
-        id: exist.id,
-        token: userToken,
-      },
-    });
   }
 
   getUsers(req, res) {
