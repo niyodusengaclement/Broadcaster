@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const con = process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.LOCAL_DB_URL;
+const con = process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.TEST_DB_URL;
 
 const pool = new Pool(con);
 export default {

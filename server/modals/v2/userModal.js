@@ -1,21 +1,21 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import users from '../../asset/users';
-import reportData from '../../asset/report';
+import db from './db';
 
 class UserModal {
   constructor() {
-    this.user = users;
-    this.report = reportData;
     this.options = { expiresIn: '365d', issuer: 'www.jwt.io' };
   }
 
-  findUser(email) {
-    return this.user.find((data) => data.email === email);
+  async findUser(email) {
+    const { rows } = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    return rows[0];
   }
 
-  addUser(data) {
-    return this.user.push(data);
+  async addUser(data) {
+    const text = 'INSERT INTO users (firstname, lastname, email, phone, username, password) values ($1, $2, $3, $4, $5, $6) returning *';
+    const { rows } = await db.query(text, data);
+    return rows[0];
   }
 
   findReport(id) {
