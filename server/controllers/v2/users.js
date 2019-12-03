@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import notification from '../../modals/notification';
 import userModal from '../../modals/v2/userModal';
+import db from '../../modals/v2/db';
 import validation from '../../helpers/validation';
 
 class Users {
@@ -98,14 +99,28 @@ class Users {
     }
   }
 
-  getUsers(req, res) {
-    return res.status(200).json({
-      status: 200,
-      data: userModal.allUsers(),
-    });
+  async getUsers(req, res) {
+    try {
+      const { rows } = await db.query('SELECT * FROM users');
+      if (!rows) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Data not found',
+        });
+      }
+      return res.status(200).json({
+        status: 200,
+        data: rows,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal Server Error',
+      });
+    }
   }
 
-  forgetPassword(req, res) {
+  async forgetPassword(req, res) {
     const { error } = validation.emailValidator(req.body);
     if (error) {
       return res.status(400).json({
@@ -113,7 +128,7 @@ class Users {
         error: error.details[0].message.split('"').join(''),
       });
     }
-    const isExist = userModal.findUser(req.body.email);
+    const isExist = await userModal.findUser(req.body.email);
     if (!isExist) {
       return res.status(404).json({
         status: 404,
@@ -144,13 +159,30 @@ class Users {
         error: 'Password doesn\'t match',
       });
     }
-    const user = userModal.findUser(req.user.email);
-    const newPassword = await userModal.hashPassword(password);
-    user.password = newPassword;
-    return res.status(200).json({
-      status: 200,
-      message: 'Password updated successfully',
-    });
+    try {
+      const newPassword = await userModal.hashPassword(password);
+      const update = 'UPDATE users SET password=$1 WHERE email=$2 returning *';
+      const values = [
+        newPassword,
+        req.user.email,
+      ];
+      const { rows } = await db.query(update, values);
+      return res.status(200).json({
+        status: 200,
+        message: 'Password updated successfully',
+        data: {
+          id: rows[0].id,
+          username: rows[0].username,
+          email: rows[0].email,
+          phoneNumber: rows[0].phone,
+        },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Internal Server Error',
+      });
+    }
   }
 }
 export default new Users();
