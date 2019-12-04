@@ -100,8 +100,14 @@ class Users {
   }
 
   async getUsers(req, res) {
+    if (req.user.isAdmin !== true) {
+      return res.status(403).json({
+        status: 403,
+        error: 'Access forbidden! This action performed by Admin only',
+      });
+    }
     try {
-      const { rows } = await db.query('SELECT * FROM users');
+      const { rows } = await db.query('SELECT id, firstname, lastname, email, phone FROM users');
       if (!rows) {
         return res.status(404).json({
           status: 404,

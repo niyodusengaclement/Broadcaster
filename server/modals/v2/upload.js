@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import moment from 'moment';
-import reportData from '../../asset/report';
+import db from './db';
+
 
 let imgName = [];
 let vdName = [];
@@ -36,30 +37,41 @@ class UploadFile {
     });
   }
 
-  saveData(req, res) {
-    this.reportId = reportData.length + 1;
-    reportData.push({
-      id: this.reportId,
-      title: req.body.title,
-      type: req.body.type,
-      createdOn: moment().format('MMMM Do YYYY, h:mm:ss a'),
-      createdBy: req.user.id,
-      comment: req.body.comment,
-      location: req.body.location,
-      status: 'pending',
-      images: imgName,
-      videos: vdName,
-      tag: req.body.tag,
-    });
-    res.status(201).json({
-      status: 201,
-      data: {
-        id: this.reportId,
+  async saveData(req, res) {
+    const text = `INSERT INTO reports (title, type, createdOn, createdBy, comment, location, status, images, videos, tag)
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`;
+    const values = [
+      req.body.title,
+      req.body.type,
+      moment().format('MMMM Do YYYY, h:mm:ss a'),
+      req.user.id,
+      req.body.comment,
+      req.body.location,
+      'pending',
+      imgName,
+      vdName,
+      req.body.tag,
+    ];
+    try {
+      const { rows } = await db.query(text, values);
+      res.status(201).json({
+        status: 201,
         message: 'Created red-flag record',
-      },
-    });
-    imgName = [];
-    vdName = [];
+        data: {
+          id: rows[0].id,
+          title: rows[0].title,
+          type: rows[0].type,
+          createdOn: rows[0].createdon,
+        },
+      });
+      imgName = [];
+      vdName = [];
+    } catch (err) {
+      res.status(500).json({
+        status: 500,
+        error: 'Internal Server Error',
+      });
+    }
   }
 }
 export default new UploadFile();
