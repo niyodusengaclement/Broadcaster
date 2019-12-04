@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api-docs', serve, setup(swaggerDoc));
 app.use('/api/v1', routes);
-app.use('api/v2', dbRoutes);
+app.use('/api/v2', dbRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port} `);

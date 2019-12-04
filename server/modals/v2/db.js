@@ -5,7 +5,7 @@ dotenv.config();
 
 const con = process.env.NODE_ENV === 'production' ? process.env.DATABASE_URL : process.env.TEST_DB_URL;
 
-const pool = new Pool(con);
+const pool = new Pool({ connectionString: con });
 export default {
   query(text, params) {
     try {

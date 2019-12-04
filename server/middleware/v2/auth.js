@@ -62,7 +62,7 @@ class Authentication {
     return next();
   }
 
-  verifyLink(req, res, next) {
+  async verifyLink(req, res, next) {
     const { email, token } = req.params;
     if (!email || !token) {
       return res.status(401).json({
@@ -71,7 +71,7 @@ class Authentication {
       });
     }
     try {
-      const user = userModal.findUser(email);
+      const user = await userModal.findUser(email);
       const secret = user.password;
       const options = { expiresIn: '365d', issuer: 'www.jwt.io' };
       const decoded = jwt.verify(token, secret, options);

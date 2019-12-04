@@ -1,9 +1,13 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import db from './db';
+import users from '../../asset/users';
+import reportData from '../../asset/report';
 
 class UserModal {
   constructor() {
+    this.user = users;
+    this.report = reportData;
     this.options = { expiresIn: '365d', issuer: 'www.jwt.io' };
   }
 
@@ -26,17 +30,13 @@ class UserModal {
     return this.user.find((data) => data.id === id);
   }
 
-  allUsers() {
-    return this.user;
-  }
-
   generateToken(info) {
     try {
       this.payload = {
         email: info.email,
         username: info.username,
         id: info.id,
-        isAdmin: info.isAdmin,
+        isAdmin: info.isadmin,
       };
       const secret = process.env.JWT_TOKEN;
       const token = jwt.sign(this.payload, secret, this.options);
@@ -62,7 +62,7 @@ class UserModal {
         email: info.email,
         username: info.username,
         id: info.id,
-        isAdmin: info.isAdmin,
+        isAdmin: info.isadmin,
       };
       const token = jwt.sign(payload, secret, this.options);
       return token;
