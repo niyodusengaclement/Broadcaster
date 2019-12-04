@@ -1,8 +1,8 @@
 import upload from '../../modals/v2/upload';
 import userModal from '../../modals/v2/userModal';
-import reportData from '../../asset/report';
 import notification from '../../modals/notification';
 import validation from '../../helpers/validation';
+import db from '../../modals/v2/db';
 
 class Report {
   newRecord(req, res) {
@@ -19,9 +19,9 @@ class Report {
     return upload.saveData(req, res);
   }
 
-  singleReport(req, res) {
+  async singleReport(req, res) {
     const reportId = parseInt(req.params.redFlagId, 10);
-    const report = userModal.findReport(reportId);
+    const report = await userModal.findReport(reportId);
     if (report) {
       return res.status(200).json({
         status: 200,
@@ -34,11 +34,13 @@ class Report {
     });
   }
 
-  allReports(req, res) {
-    if (reportData.length >= 1) {
+  async allReports(req, res) {
+    const text = 'SELECT id, title, type, createdOn, createdBy, comment, location,tag status FROM reports';
+    const { rows } = await db.query(text);
+    if (rows) {
       return res.status(200).json({
         status: 200,
-        data: reportData,
+        data: rows,
       });
     }
     return res.status(404).json({
@@ -47,7 +49,7 @@ class Report {
     });
   }
 
-  editComment(req, res) {
+  async editComment(req, res) {
     const { error } = validation.reportValidation(req.body);
     if (error) {
       return res.status(400).json({
@@ -55,23 +57,24 @@ class Report {
         error: error.details[0].message.split('"').join(''),
       });
     }
-    const report = req.myReport;
-    report.title = req.body.title;
-    report.type = req.body.type;
-    report.comment = req.body.comment;
-    report.location = req.body.location;
-    report.tag = req.body.tag;
+    const report = [
+      req.body.title,
+      req.body.type,
+      req.body.comment,
+      req.body.location,
+      req.body.tag,
+      req.myReport.id,
+    ];
+    const text = 'UPDATE reports SET title=$1, type=$2, comment=$3, location=$4, tag=$5 WHERE id=$6 returning *';
+    const { rows } = await db.query(text, report);
     return res.status(200).json({
       status: 200,
-      data: [{
-        id: report.id,
-        message: 'Updated red-flag record’s comment',
-      },
-      ],
+      message: 'Updated red-flag record’s comment',
+      data: rows[0],
     });
   }
 
-  changeLocation(req, res) {
+  async changeLocation(req, res) {
     const { error } = validation.locationValidation(req.body);
     if (error) {
       return res.status(400).json({
@@ -79,19 +82,20 @@ class Report {
         error: error.details[0].message.split('"').join(''),
       });
     }
-    const report = req.myReport;
-    report.location = req.body.location;
+    const values = [
+      req.body.location,
+      req.myReport.id,
+    ];
+    const text = 'UPDATE reports SET location=$1 WHERE id=$2 returning *';
+    const { rows } = await db.query(text, values);
     return res.status(200).json({
       status: 200,
-      data: [{
-        id: report.id,
-        message: 'Updated red-flag record’s location',
-      },
-      ],
+      message: 'Updated red-flag record’s location',
+      data: rows[0],
     });
   }
 
-  changeStatus(req, res) {
+  async changeStatus(req, res) {
     if (!req.myReport) {
       return res.status(404).json({
         status: 404,
@@ -105,34 +109,34 @@ class Report {
       });
     }
     const report = req.myReport;
-    const userId = report.createdBy;
-    const user = userModal.findUserById(userId);
-    report.status = req.body.status;
-    const message = `Your red-flag has been reviewed by Authoroties in duty and status has changed to ${report.status}.
+    const { createdby } = req.myReport;
+    const values = [
+      report.id,
+      req.body.status,
+    ];
+    const data = await db.query('UPDATE reports SET status=$2 WHERE id=$1 returning *', values);
+    const { rows } = await db.query('SELECT * FROM users WHERE id = $1 ', [createdby]);
+    const message = `Your red-flag has been reviewed by Authoroties in duty and status has changed to ${req.body.status}.
     The Broadcaster (c)2019`;
-    notification.SendNotification(user, message);
+    notification.SendNotification(rows[0], message);
     return res.status(200).json({
       status: 200,
-      data: [{
+      data: {
         id: report.id,
         message: 'Updated red-flag record’s status',
       },
-      ],
     });
   }
 
-  deleteRecord(req, res) {
-    const allReports = userModal.report;
+  async deleteRecord(req, res) {
     const report = req.myReport;
-    const index = allReports.indexOf(report);
-    allReports.splice(index, 1);
+    const { rows } = await db.query('DELETE FROM reports WHERE id=$1 returning *', [report.id]);
     return res.status(200).json({
       status: 200,
-      data: [{
-        id: report.id,
+      data: {
+        id: rows[0].id,
         message: 'Red-flag record has been deleted',
       },
-      ],
     });
   }
 }

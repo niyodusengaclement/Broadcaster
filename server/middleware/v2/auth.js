@@ -24,9 +24,9 @@ class Authentication {
     }
   }
 
-  isAdmin(req, res, next) {
+  async isAdmin(req, res, next) {
     const reportId = parseInt(req.params.red_Flag_Id, 10);
-    const report = userModal.findReport(reportId);
+    const report = await userModal.findReport(reportId);
     if (req.user.isAdmin !== true) {
       return res.status(403).json({
         status: 403,
@@ -37,16 +37,16 @@ class Authentication {
     return next();
   }
 
-  grantAccess(req, res, next) {
+  async grantAccess(req, res, next) {
     const reportId = parseInt(req.params.red_Flag_Id, 10);
-    const report = userModal.findReport(reportId);
+    const report = await userModal.findReport(reportId);
     if (!report) {
       return res.status(404).json({
         status: 404,
         error: 'Record not found',
       });
     }
-    if (req.user.id !== report.createdBy) {
+    if (req.user.id !== report.createdby) {
       return res.status(403).json({
         status: 403,
         error: 'Access forbidden! This is not your record',

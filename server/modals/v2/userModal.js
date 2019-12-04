@@ -1,13 +1,9 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import db from './db';
-import users from '../../asset/users';
-import reportData from '../../asset/report';
 
 class UserModal {
   constructor() {
-    this.user = users;
-    this.report = reportData;
     this.options = { expiresIn: '365d', issuer: 'www.jwt.io' };
   }
 
@@ -22,12 +18,10 @@ class UserModal {
     return rows[0];
   }
 
-  findReport(id) {
-    return this.report.find((data) => data.id === id);
-  }
-
-  findUserById(id) {
-    return this.user.find((data) => data.id === id);
+  async findReport(id) {
+    const text = 'SELECT id, title, type, createdOn, createdBy, comment, location, tag, status FROM reports WHERE id = $1';
+    const { rows } = await db.query(text, [id]);
+    return rows[0];
   }
 
   generateToken(info) {
