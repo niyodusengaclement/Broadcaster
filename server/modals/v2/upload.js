@@ -1,77 +1,52 @@
 import _ from 'lodash';
 import moment from 'moment';
-import db from './db';
+import cloudinary from 'cloudinary';
+import userModal from './userModal';
+
+cloudinary.config({
+  cloud_name: 'broadcaster',
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
 
-let imgName = [];
-let vdName = [];
-
+let videoUrl;
+let imgUrl;
 class UploadFile {
   uploadVideos(req) {
     this.allVideos = req.files.videos;
     if (!this.allVideos) return;
-    if (this.allVideos.length <= 1 || this.allVideos.length === undefined) {
-      vdName = this.allVideos.name;
-      this.allVideos.mv(`./server/uploads/${this.allVideos.name}`);
-      return;
-    }
-    _.forEach(_.keysIn(this.allVideos), (key) => {
-      const video = this.allVideos[key];
-      vdName.push(video.name);
-      video.mv(`./server/uploads/${video.name}`);
+    cloudinary.v2.uploader.upload(this.allVideos.tempFilePath, { resource_type: 'video' }, (error, result) => {
+      videoUrl = result.url;
+      console.log('url >>', videoUrl);
+      console.log('Video error occured >>', error);
+      return videoUrl;
     });
   }
 
   uploadPhotos(req) {
     this.allPhotos = req.files.images;
     if (!this.allPhotos) return;
-    if (this.allPhotos.length <= 1 || this.allPhotos.length === undefined) {
-      imgName = this.allPhotos.name;
-      this.allPhotos.mv(`./server/uploads/${this.allPhotos.name}`);
-      return;
-    }
-    _.forEach(_.keysIn(this.allPhotos), (key) => {
-      const image = this.allPhotos[key];
-      imgName.push(image.name);
-      image.mv(`./server/uploads/${image.name}`);
+    cloudinary.v2.uploader.upload(this.allPhotos.tempFilePath, (error, result) => {
+      imgUrl = result.url;
+      console.log('im url<<', result.url);
+      console.log('Image error >>', error);
+      return imgUrl;
     });
   }
 
-  async saveData(req, res) {
-    const text = `INSERT INTO reports (title, type, createdOn, createdBy, comment, location, status, images, videos, tag)
-    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`;
-    const values = [
-      req.body.title,
-      req.body.type,
-      moment().format('MMMM Do YYYY, h:mm:ss a'),
-      req.user.id,
-      req.body.comment,
-      req.body.location,
-      'pending',
-      imgName,
-      vdName,
-      req.body.tag,
-    ];
-    try {
-      const { rows } = await db.query(text, values);
-      res.status(201).json({
+  saveData(req, res) {
+    this.uploadVideos(req);
+    this.uploadPhotos(req);
+    setTimeout(async () => {
+      const uploadValues = [req.body.title, req.body.type, moment().format('MMMM Do YYYY, h:mm:ss a'), req.user.id, req.body.comment, req.body.location, 'pending', imgUrl, videoUrl, req.body.tag];
+      const report = await userModal.createReport(uploadValues);
+      return res.status(201).json({
         status: 201,
         message: 'Created red-flag record',
-        data: {
-          id: rows[0].id,
-          title: rows[0].title,
-          type: rows[0].type,
-          createdOn: rows[0].createdon,
-        },
+        data: report,
       });
-      imgName = [];
-      vdName = [];
-    } catch (err) {
-      res.status(500).json({
-        status: 500,
-        error: 'Internal Server Error',
-      });
-    }
+    }, 5000);
   }
 }
 export default new UploadFile();
