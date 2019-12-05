@@ -10,7 +10,7 @@
     "test": "npm run users && npm run reports && nyc --reporter=html --reporter=text mocha  --timeout 10000 --require babel-core/register --require babel-polyfill --exit ./test/index.test.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --require babel-core/register --require babel-polyfill ./server/index.js",
-    "start": "node --require babel-core/register --require babel-polyfill ./server/index.js",
+    "start": "npm run users && npm run reports && node --require babel-core/register --require babel-polyfill ./server/index.js",
     "users": "node --require babel-core/register --require babel-polyfill ./server/modals/database/db.js createUsersTables",
     "reports": "node --require babel-core/register --require babel-polyfill ./server/modals/database/db.js createReportsTables"
   },

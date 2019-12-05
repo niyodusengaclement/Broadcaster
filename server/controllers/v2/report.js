@@ -49,7 +49,7 @@ class Report {
   }
 
   async allReports(req, res) {
-    const text = 'SELECT id, title, type, createdOn, createdBy, comment, location,tag status FROM reports';
+    const text = 'SELECT * FROM reports';
     const { rows } = await db.query(text);
     if (rows) {
       return res.status(200).json({
