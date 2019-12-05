@@ -28,6 +28,13 @@ class Report {
 
   async singleReport(req, res) {
     const reportId = parseInt(req.params.redFlagId, 10);
+    const { error } = validation.redflagIdValidation(req.params);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error: error.details[0].message.split('"').join(''),
+      });
+    }
     const report = await userModal.findReport(reportId);
     if (report) {
       return res.status(200).json({
@@ -42,7 +49,7 @@ class Report {
   }
 
   async allReports(req, res) {
-    const text = 'SELECT id, title, type, createdOn, createdBy, comment, location,tag status FROM reports';
+    const text = 'SELECT * FROM reports';
     const { rows } = await db.query(text);
     if (rows) {
       return res.status(200).json({
