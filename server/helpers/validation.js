@@ -15,6 +15,20 @@ class Validation {
     return joi.validate(input, validateSchema);
   }
 
+  redflagIdValidation(input) {
+    const validateSchema = {
+      redFlagId: joi.number().required().max(1000),
+    };
+    return joi.validate(input, validateSchema);
+  }
+
+  idValidation(input) {
+    const validateSchema = {
+      red_Flag_Id: joi.number().required().max(1000),
+    };
+    return joi.validate(input, validateSchema);
+  }
+
   reportValidation(data) {
     const reportSchema = {
       id: joi.optional(),

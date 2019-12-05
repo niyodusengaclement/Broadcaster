@@ -1,7 +1,19 @@
 import jwt from 'jsonwebtoken';
 import userModal from '../../modals/v2/userModal';
+import validation from '../../helpers/validation';
 
 class Authentication {
+  validateRedflag(req, res, next) {
+    const { error } = validation.idValidation(req.params);
+    if (error) {
+      return res.status(400).json({
+        status: 400,
+        error: error.details[0].message.split('"').join(''),
+      });
+    }
+    return next();
+  }
+
   userAuthentication(req, res, next) {
     const check = req.header('x-auth');
     if (!check) {
