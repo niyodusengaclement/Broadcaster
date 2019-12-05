@@ -6,6 +6,9 @@ header .user-menus a {
 header .user-menus a:last-child {
     margin-right: 0;
 }
+.create-record-btn {
+    height: 45px;
+}
 
 .create-record .field input,
 .edit-record .field input {
@@ -80,7 +83,7 @@ header .user-menus a:last-child {
     margin-top: 5px;
     margin-left: 5px;
     margin-right: 5px;
-    font-size: 1.1rem;
+    font-size: 15px;
 }
 
 .available-records article .body,
@@ -164,8 +167,4 @@ header .user-menus a:last-child {
 }
 .budge {
     font-weight: 500;
-}
-
-.my-records article .footer .delete-record {
-    background-color: rgba(255, 0, 0, .5);
 }

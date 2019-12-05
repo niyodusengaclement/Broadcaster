@@ -11,16 +11,15 @@
     <header class="flex flex-row space-between sticky-top">
         <div class="title left"><a href="../index.html">Broadcaster</a></div>
         <div class="flex flex-row right user-menus">
-            <a href="./myRecords.html" class="button">Home</a>
-            <a href="./createRecord.html" class="button">New Report</a>
-            <a href="./records.html" class="button">Edit Report</a>
+            <a href="./records.html" class="button">Home</a>
+            <a href="./createRecord.html" class="button active-button">New Report</a>
             <a href="dashboard.html" class="button">Dashboard</a>
             <a href="./login.html" class="button">Logout</a>
         </div>
     </header>
     <main class="flex flex-column space-between content-center color-white shadow padding-30">
         <h2 class="text-center page-title">Create record</h2>
-        <form action="./myRecords.html" name="createForm" autocomplete="off">
+        <form action="./records.html" name="createForm" autocomplete="off">
             <div class="field margin-bottom-10">
                 <label for="title">Title</label>
                 <input type="text"  name="title" id="title" placeholder="Title" required autofocus>
@@ -54,7 +53,7 @@
             <div class="add-label">
             <img class="tag" src="../assets/images/label.png" alt=""> <input type="text" class="padding-10 margin-vertical-20 width-25" placeholder='Education'>
             </div>
-            <button type="submit" class="button primary-color padding-10 margin-vertical-20 width-25">Create record
+            <button type="submit" class="button primary-color padding-10 margin-vertical-20 width-25 create-record-btn">Create record
             </button>
         </form>
     </main>
