@@ -40,7 +40,7 @@ class SendNotification {
       });
 
       const from = 'Broadcaster';
-      const to = reciever.phoneNumber;
+      const to = reciever.phone;
       const text = `Hi ${reciever.username}, ${message}`;
       return this.nexmo.message.sendSms(from, to, text);
     } catch (err) {

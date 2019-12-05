@@ -1,3 +1,4 @@
+import moment from 'moment';
 import upload from '../../modals/v2/upload';
 import userModal from '../../modals/v2/userModal';
 import notification from '../../modals/notification';
@@ -5,7 +6,7 @@ import validation from '../../helpers/validation';
 import db from '../../modals/v2/db';
 
 class Report {
-  newRecord(req, res) {
+  async newRecord(req, res) {
     const { error } = validation.reportValidation(req.body);
     if (error) {
       return res.status(400).json({
@@ -13,9 +14,15 @@ class Report {
         error: error.details[0].message.split('"').join(''),
       });
     }
-    if (!req.files) return upload.saveData(req, res);
-    upload.uploadVideos(req);
-    upload.uploadPhotos(req);
+    if (!req.files) {
+      const values = [req.body.title, req.body.type, moment().format('MMMM Do YYYY, h:mm:ss a'), req.user.id, req.body.comment, req.body.location, 'pending', '', '', req.body.tag];
+      const report = await userModal.createReport(values);
+      return res.status(201).json({
+        status: 201,
+        message: 'Created red-flag record',
+        data: report,
+      });
+    }
     return upload.saveData(req, res);
   }
 
@@ -110,21 +117,16 @@ class Report {
     }
     const report = req.myReport;
     const { createdby } = req.myReport;
-    const values = [
-      report.id,
-      req.body.status,
-    ];
-    const data = await db.query('UPDATE reports SET status=$2 WHERE id=$1 returning *', values);
+    const values = [report.id, req.body.status];
+    const updateReport = await db.query('UPDATE reports SET status=$2 WHERE id=$1 returning *', values);
     const { rows } = await db.query('SELECT * FROM users WHERE id = $1 ', [createdby]);
     const message = `Your red-flag has been reviewed by Authoroties in duty and status has changed to ${req.body.status}.
     The Broadcaster (c)2019`;
     notification.SendNotification(rows[0], message);
     return res.status(200).json({
       status: 200,
-      data: {
-        id: report.id,
-        message: 'Updated red-flag record’s status',
-      },
+      message: 'Updated red-flag record’s status',
+      data: updateReport.rows[0],
     });
   }
 

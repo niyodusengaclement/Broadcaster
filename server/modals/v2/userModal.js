@@ -18,6 +18,13 @@ class UserModal {
     return rows[0];
   }
 
+  async createReport(values) {
+    const text = `INSERT INTO reports (title, type, createdOn, createdBy, comment, location, status, images, videos, tag)
+    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) returning *`;
+    const { rows } = await db.query(text, values);
+    return rows[0];
+  }
+
   async findReport(id) {
     const text = 'SELECT id, title, type, createdOn, createdBy, comment, location, tag, status FROM reports WHERE id = $1';
     const { rows } = await db.query(text, [id]);

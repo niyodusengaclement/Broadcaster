@@ -29,7 +29,7 @@ const users = `DROP TABLE IF EXISTS users; CREATE TABLE IF NOT EXISTS
       );
       INSERT INTO users (firstname, lastname, email, phone, username, password)
       values ('Mistico', 'Clement', 'clementmistico@gmail.com', '250780282575', 'Mistico', '$2b$10$cVjjDBFR8BY1EtM3avYy0eQEdHuUlm8O2fulYVx9PFDcdYqdr19Be'),
-      ('Mugenzi', 'Oscar', 'mugenzioscar@gmail.com', '250780282575', 'ugenzi', '$2b$10$cVjjDBFR8BY1EtM3avYy0eQEdHuUlm8O2fulYVx9PFDcdYqdr19Be')`;
+      ('Mugenzi', 'Oscar', 'mugenzioscar@gmail.com', '250780282575', 'Mugenzi', '$2b$10$cVjjDBFR8BY1EtM3avYy0eQEdHuUlm8O2fulYVx9PFDcdYqdr19Be')`;
 export default {
   report,
   users,
