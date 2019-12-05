@@ -26,7 +26,7 @@ class UserModal {
   }
 
   async findReport(id) {
-    const text = 'SELECT id, title, type, createdOn, createdBy, comment, location, tag, status FROM reports WHERE id = $1';
+    const text = 'SELECT * FROM reports WHERE id = $1';
     const { rows } = await db.query(text, [id]);
     return rows[0];
   }
